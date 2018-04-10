@@ -11,7 +11,9 @@ let changer = {
     next: () => {
         if(changer.scenes.length > changer.current){
             changer.current++
-
+              console.log("oie");
+              console.log(changer.current);
+              console.log(changer.scenes);
             changer.scenes[changer.current].visible(false)
             changer.scenes[changer.current++].visible(true)
         }

@@ -53,3 +53,18 @@ btn.setText("Start", style)
 
 btn.render(home)
 ```
+
+# lib para criação de labirintos
+
+deve-se definir um tamanho dos quadros pequenos e quantos vão ser{x,y} nessa ideia
+cada quadrado é um objeto que guarda informações de sprites dentro delas
+
+para tirar a proposrção de cada sprite no labirinto vais er o seguinte, onde nQx = numero de quadrado no eixo x, sQx = tamanho do quadrado em pixels no eixo x, sPx = tamanho em pixels do sprite no eixo x.
+assim como nQy = numero de quadrado no eixo y, sQy = tamanho do quadrado em pixels no eixo y, sPy = tamanho em pixels do sprite no eixo y
+
+
+
+- RIGHT (nQx * sQx) - sPx = position exata no eixo x
+- LEFT ((nQx - 1) * sQx) + sPx = position exata no eixo x
+- TOP ((nQy - 1) * sQy) + sPy = position exata no eixo y
+- BOTTOM (nQy * sQy) - sPy = position exata no eixo y

@@ -35,7 +35,7 @@ let labirinty = {
             labirinty.lalo.game.stage.addChild(labirinty.container)
 
             //add visible container default
-            labirinty.lalo.gameScenes.labirinty.container.visible = false
+            labirinty.lalo.gameScenes.labirinty.container.visible = true
         })
     },
     visible: (is) => {

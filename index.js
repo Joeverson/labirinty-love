@@ -76,4 +76,5 @@ Run - setando as scenas qeu seram renderizadas
 */
 
 lalo.gameScenes.home.create()
-lalo.gameScenes.labirinty.create()
+// lalo.gameScenes.labirinty.create()
+// lalo.gameScenes.labirinty.visible(true)
