@@ -1,4 +1,4 @@
-import {keyboard, joystick} from  './engime/keyboard'
+import {keyboard, joystick, commands} from  './engime/keyboard'
 import animation from  './engime/animation'
 // var labth = require('./js/engime/labth')
 import { collision } from  './engime/collision'
@@ -34,7 +34,7 @@ function init (){
     app.renderer.view.style.display = "block";
     app.renderer.autoResize = true;
     app.renderer.backgroundColor = "#8D6E63";
-    app.renderer.resize(window.innerWidth, window.innerHeight);
+    app.renderer.resize(window.innerWidth, window.innerHeight-200);
 
     return app
 }
@@ -77,7 +77,6 @@ lalo.add = container => {
 }
 
 
-
 //alterador de scenes.. simplificador
 lalo.changer.scenes = [
     // home.instance(lalo), // #1
@@ -86,6 +85,7 @@ lalo.changer.scenes = [
 ]
 
 
+//startand as scenes
 lalo.changer.start()
 
 

@@ -1,4 +1,4 @@
-import { joystick } from "../engime/keyboard";
+import { joystick, commands } from "../engime/keyboard";
 import labth from "../engime/labth";
 import { collision, contain } from "../engime/collision";
 import debug from '../engime/debug'
@@ -49,6 +49,9 @@ let labirinty = {
                 top: "src/sprites/Isometric/fence_diagonal_SE.png",
                 bottom: "src/sprites/Isometric/fence_diagonal_SE.png"
             })
+
+            //escutando os comandos disparados pelos jogador
+            commands.listen()
 
             //add visible container default
             labirinty.container.visible = true
@@ -169,9 +172,7 @@ labirinty.loads = callback => {
             labirinty.state = personRunner
 
             labirinty.lalo.game.ticker.add(delta => labirinty.gameLoop(delta));
-
-            console.log(labirinty.lalo.sprites.walls);
-            
+           
 
             callback([labirinty.lalo.sprites.persona])
         });
@@ -202,16 +203,11 @@ function personRunner () {
 
     //colliison block in walll
     _.forEach(labirinty.lalo.sprites.walls, wall => {        
-        if (collision(wall, labirinty.lalo.sprites.persona)){
-            console.log(contain(labirinty.lalo.sprites.persona, wall));
-            
-            if(false){
-                labirinty.lalo.sprites.persona.x = wall.x - 30
-                labirinty.lalo.sprites.persona.y = wall.y - 30
-            }
+        if (collision(wall, labirinty.lalo.sprites.persona)){            
+            contain(labirinty.lalo.sprites.persona, wall)            
         }        
     })
-    
+   
 }
 
 

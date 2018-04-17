@@ -1,4 +1,5 @@
 import animation from './animation'
+import listCommands from '../utils/listCommands';
 /*
 -----------------
 keyboards
@@ -19,7 +20,7 @@ let keyboard = {
                 key.isDown = true;
                 key.isUp = false;
             }
-            event.preventDefault();
+            // event.preventDefault();
         };
 
         //The `upHandler`
@@ -45,7 +46,7 @@ let keyboard = {
         text: PIXI.Text,
         cb: {},
         sprite: {},
-        color:{
+        color: {
             in: 'ffffff',
             out: '000000'
         },
@@ -72,7 +73,7 @@ let keyboard = {
             // set the interactivity to true and assign callback functions
             keyboard.fisics.sprite.interactive = true;
 
-            return {...keyboard.fisics}
+            return { ...keyboard.fisics }
         },
         events: (btn) => {
             btn.sprite.on("mousedown", () => {
@@ -106,7 +107,7 @@ let keyboard = {
             keyboard.fisics.sprite.tint = keyboard.fisics.color.in;
         },
         onUp: () => {
-            if(typeof(keyboard.fisics.cb) === 'function') {
+            if (typeof (keyboard.fisics.cb) === 'function') {
                 keyboard.fisics.cb();
             }
             keyboard.fisics.sprite.y -= 5;
@@ -138,9 +139,9 @@ dependencies: animation.move, keyboard
 let joystick = (sprite) => {
     //Capture the keyboard arrow keys
     let left = keyboard.logic(37),
-    up = keyboard.logic(38),
-    right = keyboard.logic(39),
-    down = keyboard.logic(40);
+        up = keyboard.logic(38),
+        right = keyboard.logic(39),
+        down = keyboard.logic(40);
 
     let velocity = 3
 
@@ -220,7 +221,32 @@ let joystick = (sprite) => {
 }
 
 
+
+/**
+ * chamada de comandos dados pelos jogador ao bixiho on xão
+ */
+let commands = {
+    listen: () => {
+        let enter = keyboard.logic(13),
+        tab = keyboard.logic(9)
+        // quando precionar enter deve mandar a mensagem para o sistema e assim fazer alguma coisa
+        enter.press = () => {
+            if (_.isFunction(listCommands[document.getElementById("command").value])){
+                listCommands[document.getElementById("command").value]()
+            }else{
+                listCommands.clean()
+            }
+        };
+
+        //dando focus ao elemento de texto para dar comandos 
+        tab.press = () => {
+            document.getElementById("command").focus
+        }
+    }
+}
+
 export {
     keyboard,
-    joystick
+    joystick,
+    commands
 }
