@@ -1,4 +1,4 @@
-import debug from "./debug";
+import utils from "../utils/utils";
 
 
 /**
@@ -41,7 +41,7 @@ export default {
                 // create a new Sprite from an image path
                 var bunny, coor
 
-                switch (Math.floor(Math.random() * 4)) {
+                switch (utils.random(4)) {
                     case TOP:
                         bunny = PIXI.Sprite.fromImage(sprite.top)
                         coor = this.a.top(i, c, bunny)
@@ -70,7 +70,7 @@ export default {
                 //definindo a paradinha para a parede
                 this.a.lalo.sprites.walls.push(bunny)
 
-                debug.sprite(bunny)
+                // utils.debug.sprite(bunny)
 
                 //adicionando para o container
                 this.a.lalo.gameScenes.labirinty.add(bunny)

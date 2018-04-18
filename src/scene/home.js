@@ -8,7 +8,7 @@ let home = {
         home.lalo = lalo
         return home
     },
-    container: false,
+    container: new PIXI.Container(),
     //adicionando objetos a scene
     add: (object) => {
         home.container.addChild(object)
@@ -16,9 +16,7 @@ let home = {
     //criando o container e adicionando no escopo global
     // e jjá definindo como invisible
     create: () => {
-        //game hoall scena principal onde tem o labirinto
-        home.container = new PIXI.Container()
-
+        
         // create a video texture from a path
         var texture = PIXI.Texture.fromVideo('videos/init-logo.avi');
         // create a new Sprite using the video texture (yes it's that easy)

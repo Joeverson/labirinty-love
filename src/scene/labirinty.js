@@ -1,7 +1,8 @@
 import { joystick, commands } from "../engime/keyboard";
 import labth from "../engime/labth";
 import { collision, contain } from "../engime/collision";
-import debug from '../engime/debug'
+import monsters from "../engime/monsters";
+import utils from "../utils/utils"
 /*
     SCENE LABIRINTY
 */
@@ -12,7 +13,7 @@ let labirinty = {
         labirinty.lalo = lalo
         return labirinty
     },
-    container: false,
+    container: new PIXI.Container(),
     //state looping - definição de que loopin será chamado para executar
     state: "",
     //adicionando objetos a scene
@@ -25,9 +26,7 @@ let labirinty = {
              
         //instanciando tudo dentro do container
         labirinty.loads((objects) => {
-            //game hoall scena principal onde tem o labirinto
-            labirinty.container = new PIXI.Container()
-
+            
             //add objects ao container
             _.forEach(objects, o => {
                 labirinty.add(o)
@@ -39,9 +38,13 @@ let labirinty = {
             //adiciono no global esse container scene
             labirinty.lalo.add(labirinty.container)
 
-            debug.sprite(labirinty.lalo.sprites.persona)
+            // utils.debug.sprite(labirinty.lalo.sprites.persona)
 
-            //criando o labirinto                                   
+            /***
+             * 
+             * Criando o labirinto
+             * 
+             * */                            
             labth.instance(labirinty.lalo)
             labth.generate(133, 133, 25, {
                 left: "src/sprites/Isometric/fence_diagonal_NW.png",
@@ -50,10 +53,53 @@ let labirinty = {
                 bottom: "src/sprites/Isometric/fence_diagonal_SE.png"
             })
 
-            //escutando os comandos disparados pelos jogador
+            
+            /**
+             * 
+             * Criando os monstros
+             * 
+             */
+            // prepara a instancia para os monstros
+            monsters.instance(labirinty.lalo)
+
+            //cria os monstros na memoria
+            monsters.loadSheet('src/sprites/0x72_16x16DungeonTileset.v4.png',[
+                { // #1 monstro
+                    x: 133,
+                    y: 178,
+                    w: 22,
+                    h: 30
+                },
+                {// #2 monstro
+                    x: 102,
+                    y: 182,
+                    w: 20,
+                    h: 26
+                },
+                {// #3 monstro
+                    x: 160,
+                    y: 177,
+                    w: 32,
+                    h: 31
+                }
+            ], 5).then(container => {
+                labirinty.add(container)
+            })
+
+
+
+            /***
+             * 
+             * escutando os comandos disparados pelos jogador
+             * 
+             * */
             commands.listen()
 
-            //add visible container default
+            /**
+             * 
+             * deixando esse container visivel
+             * 
+             */
             labirinty.container.visible = true
         })
     },

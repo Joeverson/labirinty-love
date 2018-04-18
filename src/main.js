@@ -23,8 +23,8 @@ function init (){
     //Create a Pixi Application
     let app = new PIXI.Application({
         width: 500,
-        height: 500,
-        transparent: true
+        height: "90hv",
+        transparent: false
     });
 
     //Add the canvas that Pixi automatically created for you to the HTML document
@@ -33,7 +33,7 @@ function init (){
     app.renderer.view.style.position = "absolute";
     app.renderer.view.style.display = "block";
     app.renderer.autoResize = true;
-    app.renderer.backgroundColor = "#8D6E63";
+    app.renderer.backgroundColor = "8D6E63";
     app.renderer.resize(window.innerWidth, window.innerHeight-200);
 
     return app
@@ -60,7 +60,8 @@ let lalo = {
     labth,
     //storage ofthe sprites
     sprites: {
-        walls: []
+        walls: [],
+        monsters: []
     },       
     //alterador de telas do game
     changer   
