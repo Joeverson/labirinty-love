@@ -1,8 +1,9 @@
-import { joystick, commands } from "../engime/keyboard";
+import { joystick, joystickMoveContainer, commands } from "../engime/keyboard";
 import labth from "../engime/labth";
 import { collision, contain } from "../engime/collision";
 import monsters from "../engime/monsters";
 import utils from "../utils/utils"
+import battle from "../engime/battle";
 /*
     SCENE LABIRINTY
 */
@@ -93,7 +94,7 @@ let labirinty = {
              * escutando os comandos disparados pelos jogador
              * 
              * */
-            commands.listen()
+            commands.listen(labirinty.lalo)
 
             /**
              * 
@@ -247,11 +248,29 @@ function personRunner () {
 
     labirinty.lalo.sprites.persona.y += labirinty.lalo.sprites.persona.vy
 
-    //colliison block in walll
+    /**
+     * colisão quando o persona tenta passar pelas paredes
+     * esse foreache verifica se ele esta batendo em algum 
+     * dos obstaculos e o contain faz uma contenção para que ele não atravese 
+     */
     _.forEach(labirinty.lalo.sprites.walls, wall => {        
         if (collision(wall, labirinty.lalo.sprites.persona)){            
-            contain(labirinty.lalo.sprites.persona, wall)            
+            contain(labirinty.lalo.sprites.persona, wall)                        
         }        
+    })
+
+    /**
+     * 
+     * verificando se o persona bate em algum monstro
+     * e com isso ele da um zoom e começa a batalha
+     * 
+     * 
+     */
+    _.forEach(labirinty.lalo.sprites.monsters, monster => {
+        if (collision(monster, labirinty.lalo.sprites.persona)) {
+            contain(labirinty.lalo.sprites.persona, monster)
+            battle.fight(labirinty.lalo)
+        }           
     })
    
 }

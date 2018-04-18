@@ -85,9 +85,11 @@ lalo.changer.scenes = [
     labirinty.instance(lalo) // #3
 ]
 
-
 //startand as scenes
 lalo.changer.start()
+
+console.log(lalo);
+
 
 
 export default lalo

@@ -103,9 +103,6 @@ export default {
                     // fazendo um for em cada posição qeu foi definida anterriormente
                     _.forEach(monsters, textureM => {
 
-
-
-
                         //fazendo deacordo com a quantidade pedida
                         for (var i = 0; i < qtdIqualsMonster; i++) {
                             // pegando os frame do sheet para remover só o spŕite do monstro
@@ -113,7 +110,7 @@ export default {
 
                             var m = new PIXI.Sprite(textureM)
 
-                            
+                            //almentando os mesmos
                             m.scale.x *= 2;
                             m.scale.y *= 2;
 
@@ -136,6 +133,7 @@ export default {
 
                     })
 
+                    this.a.lalo.gameScenes.monsters = this.a.container
                     //returnn promisse
                     resolve(this.a.container)
                 });
@@ -159,6 +157,9 @@ export default {
 
         //adicionando no container
         this.a.add(monster)
+
+        //salvando no sprites global 
+        this.a.lalo.sprites.monsters.push(monster)
 
     },
     visible: (is) => {

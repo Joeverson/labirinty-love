@@ -20,7 +20,10 @@ export default {
     instance: o => {
         this.a.lalo = o
     },
-
+    container: new PIXI.Container(),
+    add: sprite => {
+        this.a.container.addChild(sprite)
+    },
     generate: (x, y, size, sprites) => {
         this.a.x = x // size of the section []
         this.a.y = y // size of the section []
@@ -73,12 +76,14 @@ export default {
                 // utils.debug.sprite(bunny)
 
                 //adicionando para o container
-                this.a.lalo.gameScenes.labirinty.add(bunny)
+                this.a.add(bunny)
             }
         }
 
         //for com tamanho de cada paradinha cels
         // add positions of the em um objeto (depois ja colocar as informações do sprite wall )
+        this.a.lalo.gameScenes.walls = this.a.container
+        this.a.lalo.gameScenes.labirinty.add(this.a.container)
     },
 
     // item no lado esquerdo

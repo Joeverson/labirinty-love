@@ -1,5 +1,14 @@
 import animation from './animation'
 import listCommands from '../utils/listCommands';
+
+/**
+ * constants
+ */
+
+ const VELOCITY_CONTAINER = 10
+
+
+
 /*
 -----------------
 keyboards
@@ -221,19 +230,89 @@ let joystick = (sprite) => {
 }
 
 
+/**
+ * este é um joystic onde o persona não anda (não ele pela pagina)
+ * mas sim só a animação
+ * 
+ * 
+ */
+
+let joystickMoveContainer = {
+    move: (sprite, container) => {
+        console.log(this);
+        
+        //Capture the keyboard arrow keys
+        let left = keyboard.logic(37),
+            up = keyboard.logic(38),
+            right = keyboard.logic(39),
+            down = keyboard.logic(40);
+
+        //Left arrow key `press` method
+        left.press = () => {
+            //Change the cat's velocity when the key is pressed    
+            sprite.texture.frame = animation.move.directions.left()
+
+            this.b.movedContainer.left(container)
+        };        
+        //Left arrow key `release` method
+        left.release = () => {
+            if (!right.isDown && container.y === 0) {
+                sprite.texture.frame = animation.move.directions.left()
+                // this.b.movedContainer.left(container)
+            }            
+        };
+
+        //Up
+        up.press = () => {
+            sprite.texture.frame = animation.move.directions.up()
+        };
+        up.release = () => {
+            sprite.texture.frame = animation.move.directions.up()
+        };
+
+        //Right
+        right.press = () => {
+            sprite.texture.frame = animation.move.directions.right()
+        };
+        right.release = () => {
+            sprite.texture.frame = animation.move.directions.right()
+        };
+
+        //Down
+        down.press = () => {
+            sprite.texture.frame = animation.move.directions.down()
+        };
+        down.release = () => {
+            sprite.texture.frame = animation.move.directions.down()
+        };
+
+    },
+    movedContainer: {
+        left: container => {
+            container.x += -VELOCITY_CONTAINER;
+            container.y += 0;
+        },
+        right: container => {
+            container.x += -VELOCITY_CONTAINER;
+            container.y += 0;
+        }
+    }
+}
+
+
 
 /**
  * chamada de comandos dados pelos jogador ao bixiho on xão
  */
 let commands = {
-    listen: () => {
+    listen: (lalo) => {
         let enter = keyboard.logic(13),
-        alt = keyboard.logic(18)
+            alt = keyboard.logic(18)
         // quando precionar enter deve mandar a mensagem para o sistema e assim fazer alguma coisa
         enter.press = () => {
-            if (_.isFunction(listCommands[document.getElementById("command").value])){
-                listCommands[document.getElementById("command").value]()
-            }else{
+            if (_.isFunction(listCommands[document.getElementById("command").value])) {
+                listCommands[document.getElementById("command").value](lalo)
+            } else {
                 listCommands.clean()
             }
         };
@@ -248,5 +327,6 @@ let commands = {
 export {
     keyboard,
     joystick,
-    commands
+    commands,
+    joystickMoveContainer
 }
