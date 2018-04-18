@@ -228,7 +228,7 @@ let joystick = (sprite) => {
 let commands = {
     listen: () => {
         let enter = keyboard.logic(13),
-        tab = keyboard.logic(9)
+        alt = keyboard.logic(18)
         // quando precionar enter deve mandar a mensagem para o sistema e assim fazer alguma coisa
         enter.press = () => {
             if (_.isFunction(listCommands[document.getElementById("command").value])){
@@ -239,7 +239,7 @@ let commands = {
         };
 
         //dando focus ao elemento de texto para dar comandos 
-        tab.press = () => {
+        alt.press = () => {
             document.getElementById("command").focus
         }
     }
