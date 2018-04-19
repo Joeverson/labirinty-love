@@ -47,7 +47,7 @@ let labirinty = {
              * 
              * */                            
             labth.instance(labirinty.lalo)
-            labth.generate(133, 133, 25, {
+            labth.generate(133, 133, 30, {
                 left: "src/sprites/Isometric/fence_diagonal_NW.png",
                 right: "src/sprites/Isometric/fence_diagonal_NW.png",
                 top: "src/sprites/Isometric/fence_diagonal_SE.png",

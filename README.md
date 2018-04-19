@@ -68,3 +68,13 @@ assim como nQy = numero de quadrado no eixo y, sQy = tamanho do quadrado em pixe
 - RIGHT ((nQx * sQx) + sQx) - sPx = position exata no eixo x
 - TOP (nQy * sQy) + sPy = position exata no eixo y
 - BOTTOM ((nQy * sQy) + sQy) - sPy = position exata no eixo y
+
+
+# o que criar
+
+- criar o castelo (apenas uma preload e uma porta quando ele entrar ele vai para outras scene e dentro tem monstros e a novinha para salvar)
+- armas e como usar
+- equipamentos e como usar
+- magias e como usar
+- batalhas como vai funcionar
+- movimentação do personagem
