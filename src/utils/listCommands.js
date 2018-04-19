@@ -11,6 +11,8 @@ export default {
     fugir: (lalo) => {
         lalo.game.stage.scale.x = 1
         lalo.game.stage.scale.y = 1
+        lalo.game.stage.x = 0
+        lalo.game.stage.y = 0
         this.a.clean()
     }
 }

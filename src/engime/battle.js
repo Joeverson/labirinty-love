@@ -30,8 +30,8 @@ export default {
         this.a.lalo.game.stage.scale.y = 2
 
         //deixando o zoom no personagem
-        // this.a.lalo.game.stage.x = this.a.lalo.sprites.persona.x + 300
-        // this.a.lalo.game.stage.y = this.a.lalo.sprites.persona.y + 300
+        this.a.lalo.game.stage.x = (-1 * (this.a.lalo.sprites.persona.x))
+        this.a.lalo.game.stage.y = (-1 * (this.a.lalo.sprites.persona.y))
 
     }
 }

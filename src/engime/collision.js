@@ -84,6 +84,14 @@ let contain = (sprite, container) => {
 }
 
 /**
+ * moved the map deacordo com a aproximidade das paredes do que foi renderixado
+ * ou seja, quando o persona chegar perto das paredes o mapa anda alguns pixels
+ * no sentido inverso ao que o personagem estiver indo, com isso vamos poder dar 
+ * um efeito de continuidade no mapa.
+ * 
+ */
+
+/**
  * sera necessario fazer um calculo probabilistico para definir se o sprite esta masi para top ou left, e bottom para right.. e assim por diante
  * com esse calculo podemos definir qual a possivel posição do sprite e assim fazer com que ele permaneça na mesma posição que ele esta
  * **/
