@@ -1,6 +1,6 @@
 import { joystick, joystickMoveContainer, commands } from "../engime/keyboard";
 import labth from "../engime/labth";
-import { collision, contain } from "../engime/collision";
+import { collision, contain, moveMap } from "../engime/collision";
 import monsters from "../engime/monsters";
 import utils from "../utils/utils"
 import battle from "../engime/battle";
@@ -25,10 +25,10 @@ let labirinty = {
     //criando o container e adicionando no escopo global
     // e jjá definindo como invisible
     create: () => {
-             
+
         //instanciando tudo dentro do container
         labirinty.loads((objects) => {
-            
+
             //add objects ao container
             _.forEach(objects, o => {
                 labirinty.add(o)
@@ -46,7 +46,7 @@ let labirinty = {
              * 
              * Criando o labirinto
              * 
-             * */                            
+             * */
             labth.instance(labirinty.lalo)
             labth.generate(133, 133, 30, {
                 left: "src/sprites/Isometric/fence_diagonal_NW.png",
@@ -55,7 +55,7 @@ let labirinty = {
                 bottom: "src/sprites/Isometric/fence_diagonal_SE.png"
             })
 
-            
+
             /**
              * 
              * Criando os monstros
@@ -65,7 +65,7 @@ let labirinty = {
             monsters.instance(labirinty.lalo)
 
             //cria os monstros na memoria
-            monsters.loadSheet('src/sprites/0x72_16x16DungeonTileset.v4.png',[
+            monsters.loadSheet('src/sprites/0x72_16x16DungeonTileset.v4.png', [
                 { // #1 monstro
                     x: 133,
                     y: 178,
@@ -85,10 +85,9 @@ let labirinty = {
                     h: 31
                 }
             ], 5).then(container => {
+                // adicionando ao container do labirinto
                 labirinty.add(container)
             })
-
-
 
             /***
              * 
@@ -127,21 +126,21 @@ labirinty.loads = callback => {
             //preparando o person
             resources.person.texture.frame = labirinty.lalo.animation.move.load({
                 left: [{
-                        x: 594,
-                        y: 54
-                    },
-                    {
-                        x: 626,
-                        y: 56
-                    },
-                    {
-                        x: 658,
-                        y: 54
-                    },
-                    {
-                        x: 690,
-                        y: 56
-                    },
+                    x: 594,
+                    y: 54
+                },
+                {
+                    x: 626,
+                    y: 56
+                },
+                {
+                    x: 658,
+                    y: 54
+                },
+                {
+                    x: 690,
+                    y: 56
+                },
                 ],
                 up: [
                     {
@@ -198,9 +197,9 @@ labirinty.loads = callback => {
                     },
                 ]
             }, {
-                w: 28,
-                h: 38
-            }).default
+                    w: 28,
+                    h: 38
+                }).default
 
             let persona = new PIXI.Sprite(resources.person.texture);
 
@@ -213,8 +212,8 @@ labirinty.loads = callback => {
             labirinty.lalo.sprites.persona.vx = 0
             labirinty.lalo.sprites.persona.vy = 0
 
-            labirinty.lalo.sprites.persona.x = window.innerWidth/2
-            labirinty.lalo.sprites.persona.y = window.innerHeight/2
+            labirinty.lalo.sprites.persona.x = window.innerWidth / 2
+            labirinty.lalo.sprites.persona.y = window.innerHeight / 2
 
             //colocando a barra de vida
             hp.bar(labirinty.lalo.sprites.persona)
@@ -223,7 +222,7 @@ labirinty.loads = callback => {
             labirinty.state = personRunner
 
             labirinty.lalo.game.ticker.add(delta => labirinty.gameLoop(delta));
-           
+
 
             callback([labirinty.lalo.sprites.persona])
         });
@@ -235,7 +234,7 @@ game looping
 ------------------------------
 */
 labirinty.gameLoop = delta => {
-   labirinty.state(delta)
+    labirinty.state(delta)
 }
 
 
@@ -246,7 +245,7 @@ funcitons game looping
 */
 
 // looping responsavel por m,ovimentar o persona
-function personRunner () {    
+function personRunner() {
     //Use the cat's velocity to make it move
     labirinty.lalo.sprites.persona.x += labirinty.lalo.sprites.persona.vx;
 
@@ -257,10 +256,10 @@ function personRunner () {
      * esse foreache verifica se ele esta batendo em algum 
      * dos obstaculos e o contain faz uma contenção para que ele não atravese 
      */
-    _.forEach(labirinty.lalo.sprites.walls, wall => {        
-        if (collision(wall, labirinty.lalo.sprites.persona)){            
-            contain(labirinty.lalo.sprites.persona, wall)                        
-        }        
+    _.forEach(labirinty.lalo.sprites.walls, wall => {
+        if (collision(wall, labirinty.lalo.sprites.persona)) {
+            contain(labirinty.lalo.sprites.persona, wall)
+        }
     })
 
     /**
@@ -274,31 +273,41 @@ function personRunner () {
         if (collision(monster, labirinty.lalo.sprites.persona)) {
             contain(labirinty.lalo.sprites.persona, monster)
             battle.fight(labirinty.lalo)
-        }           
+        }
     })
-   
+
+
+    /**
+     * 
+     * instanciando o move map
+     * 
+     */
+    
+    moveMap.move(200, 10, labirinty.lalo.game, labirinty.lalo.sprites.persona)
+    
+
 }
 
 
 //floor
-function floor_render(){
+function floor_render() {
     let texture = PIXI.Texture.fromImage('img/sprites/floor.png')
     var sprite
 
-    let loopw = Math.floor(window.innerWidth/texture.width)
-    let looph = Math.floor(window.innerHeight/texture.height)
-    
+    let loopw = Math.floor(window.innerWidth / texture.width)
+    let looph = Math.floor(window.innerHeight / texture.height)
+
     // for(var h=0; h<looph; h++){
 
 
     //     for(var i=0; i<loopw; i++){
 
     //         sprite = new PIXI.Sprite(texture)
-    
+
     //         sprite.x = sprite.x+i
     //         sprite.y = sprite.y+h    
-           
-    
+
+
     //         labirinty.add(sprite)
     //     }
     // }
