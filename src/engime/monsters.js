@@ -1,4 +1,5 @@
 import utils from "../utils/utils";
+import hp from "./hp";
 
 /*
     SCENE Monstros
@@ -124,7 +125,11 @@ export default {
                                 hp: utils.random(HP),
                             }
 
-                            // utils.debug.sprite(m)
+                            // colocando a barra de life no monstro
+                            hp.bar(m)
+
+
+                            utils.debug.sprite(m)
 
                             //dsitribuindo
                             this.a.distribuir(m)

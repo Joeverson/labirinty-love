@@ -4,6 +4,7 @@ import { collision, contain } from "../engime/collision";
 import monsters from "../engime/monsters";
 import utils from "../utils/utils"
 import battle from "../engime/battle";
+import hp from "../engime/hp";
 /*
     SCENE LABIRINTY
 */
@@ -39,7 +40,7 @@ let labirinty = {
             //adiciono no global esse container scene
             labirinty.lalo.add(labirinty.container)
 
-            // utils.debug.sprite(labirinty.lalo.sprites.persona)
+            utils.debug.sprite(labirinty.lalo.sprites.persona)
 
             /***
              * 
@@ -214,6 +215,9 @@ labirinty.loads = callback => {
 
             labirinty.lalo.sprites.persona.x = window.innerWidth/2
             labirinty.lalo.sprites.persona.y = window.innerHeight/2
+
+            //colocando a barra de vida
+            hp.bar(labirinty.lalo.sprites.persona)
 
             //definindo quem vai tratar o looping
             labirinty.state = personRunner

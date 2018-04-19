@@ -5,15 +5,31 @@
  * 
  */
 
- export default {
-     bar: (sprite) => {
-         var graphics = new PIXI.Graphics();
+export default {
+    bar: (sprite) => {
+        var graphics = new PIXI.Graphics();
 
-         graphics.lineStyle(1, 0xFF00FF, 1);
-         graphics.beginFill(0xFF00BB, 0.95);
-         graphics.drawRoundedRect(50, 450, 300, 50, 5);
-         graphics.endFill();
+        graphics.lineStyle(3, 0x000000, 1);
+        graphics.beginFill(0xEF5350, 0.95);
+        graphics.drawRoundedRect(50, 450, 300, 50, 5);
+        graphics.endFill();
 
-         sprite.addChild(graphics)
-     }
- }
+
+        graphics.x = -25
+        graphics.y = -110
+        graphics.scale.x = 0.2
+        graphics.scale.y = 0.2
+
+        sprite.addChild(graphics)
+    },
+    damage: (sprite, int) => {
+        return new Promise(resolve => {
+            if (sprite.children[0].width < int)
+                sprite.children[0].width = 0
+            else
+                sprite.children[0].width = sprite.children[0].width - int
+
+            resolve()
+        })
+    }
+}

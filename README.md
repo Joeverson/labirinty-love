@@ -78,3 +78,20 @@ assim como nQy = numero de quadrado no eixo y, sQy = tamanho do quadrado em pixe
 - magias e como usar
 - batalhas como vai funcionar
 - movimentação do personagem
+
+# calculos para o zoom do fight
+
+para fazer o zoom foi analzado que a posição do persona vai ser a base para a movimentação do stage(sena geral)
+mas de forma negativa para dar o foco no persona, já que o valor x=0 e y=0 indica o topo
+superior esquedo da tela então para centralizar o alvo do zoom deve se usar valores negativos para 
+dar o efeito desejado. Então pensando nisso o calculo para x e y seria basicamente assim.
+
+legenda: 
+    - A : area do quadrado onde o personagem vai ficar no centro, no caso seria o tamando para centralizar o personna mas ao centro mesmo
+    - Ax : seria quem iria receber a nova coordenada, ou seja o stage com todo o senario
+    - Px : seria o valor de x do sprite, a posição dele em relação ao eixo x
+    - Ay : seria quem iria receber a nova coordenada, ou seja o stage com todo o senario
+    - Py : seria o valor de y do sprite, a posição dele em relação ao eixo y
+
+Ax = (-1 * Px) - A
+Ay = (-1 * Py) - A
