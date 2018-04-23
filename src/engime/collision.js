@@ -1,10 +1,11 @@
+import { ESRCH } from "constants";
 
 /**
  * CONSTANTS
  * **/
 
 const RECUO = 10
-
+const TOP = 0, RIGHT = 1, BOTTOM = 2, LEFT = 3
 /*
 -----------------
 Collisions
@@ -89,7 +90,80 @@ let contain = (sprite, container) => {
  * no sentido inverso ao que o personagem estiver indo, com isso vamos poder dar 
  * um efeito de continuidade no mapa.
  * 
+ * 
+ * @param int distance - define qual a distancia que o persona deve estar para poder para o map andar
+ * @param int moveDistance - define quanto em pixels o mapa vai se mover
+ * @param Object map - é o container do mapa que irá se mover deacordo com o que o persona estiver andando
+ * 
+ * @return void
  */
+var moveMap = {
+    move: (distance, moveDistance, map, sprite) => {        
+        
+        let moved = this.c.hasMoved(distance, moveDistance, map, sprite)
+        // console.log(moved);
+
+        if(moved.bool){
+            console.log(distance, moveDistance, map, sprite);
+            console.log(moved);
+            
+            switch(moved.side){
+                case LEFT:
+                    map.stage.x += moveDistance
+                break
+                case TOP:
+                    map.stage.y += moveDistance 
+                break
+                case RIGHT:
+                    map.stage.x += (-1 * moveDistance)
+                break
+                case BOTTOM:
+                    map.stage.y += (-1 * moveDistance)
+                break
+            }
+        }        
+    },
+    /**
+     * 
+     * controlle do looping para saber quando eke já saiu da zona sensivel
+     */
+    hasMoved: (distance, moveDistance, map, sprite) => {
+        let bool, side
+
+        //left
+        if (sprite.x < distance) {
+            bool = true
+            side = LEFT
+        }else{
+            bool = false
+        }
+
+        //top
+        if (sprite.y < distance) {
+            bool = true
+            side = TOP
+        }else{
+            bool = false
+        }
+        //right
+        if (sprite.x > (map.renderer.width - distance)) {
+            bool = true
+            side = RIGHT
+        }else{
+            bool = false
+        }
+        //bottom
+        if (sprite.y > (map.renderer.height - distance)) {
+            bool = true
+            side = BOTTOM
+        }else{
+            bool = false
+        }
+
+        return { bool, side}
+    }
+
+}
 
 /**
  * sera necessario fazer um calculo probabilistico para definir se o sprite esta masi para top ou left, e bottom para right.. e assim por diante
@@ -99,5 +173,6 @@ let contain = (sprite, container) => {
 
 export {
     collision,
-    contain
+    contain,
+    moveMap
 }

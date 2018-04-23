@@ -60,7 +60,7 @@ let lalo = {
     labth,
     //storage ofthe sprites
     sprites: {
-        walls: [],
+        map: [],
         monsters: []
     },       
     //alterador de telas do game

@@ -26,7 +26,7 @@
           * ele informa algumas coisas referente aposição do sprite
           * e o seu tamanho
           */
-         sprite: s => {
+         sprite: (s, i, t) => {
              s.interactive = true
              s.buttonMode = true
 
@@ -34,6 +34,8 @@
                  let print = `
                 X: ${s.x}
                 Y: ${s.y}
+                i: ${i}
+                t: ${t}
                 width: ${s.width}
                 height: ${s.height}
              `
