@@ -1,5 +1,5 @@
 import { joystick, joystickMoveContainer, commands } from "../engime/keyboard";
-import labth from "../engime/labth";
+import labth from "../engime/labthIsometric";
 import { collision, contain, moveMap } from "../engime/collision";
 import monsters from "../engime/monsters";
 import utils from "../utils/utils"
@@ -48,11 +48,11 @@ let labirinty = {
              * 
              * */
             labth.instance(labirinty.lalo)
-            labth.generate(133, 133, 30, {
-                left: "src/sprites/Isometric/fence_diagonal_NW.png",
-                right: "src/sprites/Isometric/fence_diagonal_NW.png",
-                top: "src/sprites/Isometric/fence_diagonal_SE.png",
-                bottom: "src/sprites/Isometric/fence_diagonal_SE.png"
+            labth.generate(151, 182, 3, {
+                left: "src/sprites/Isometric/cliffBrown_block_SE.png",
+                right: "src/sprites/Isometric/cliffBrown_block_SE.png",
+                top: "src/sprites/Isometric/cliffBrown_block_SE.png",
+                bottom: "src/sprites/Isometric/cliffBrown_block_SE.png"
             })
 
 
@@ -62,32 +62,32 @@ let labirinty = {
              * 
              */
             // prepara a instancia para os monstros
-            monsters.instance(labirinty.lalo)
+            // monsters.instance(labirinty.lalo)
 
-            //cria os monstros na memoria
-            monsters.loadSheet('src/sprites/0x72_16x16DungeonTileset.v4.png', [
-                { // #1 monstro
-                    x: 133,
-                    y: 178,
-                    w: 22,
-                    h: 30
-                },
-                {// #2 monstro
-                    x: 102,
-                    y: 182,
-                    w: 20,
-                    h: 26
-                },
-                {// #3 monstro
-                    x: 160,
-                    y: 177,
-                    w: 32,
-                    h: 31
-                }
-            ], 5).then(container => {
-                // adicionando ao container do labirinto
-                labirinty.add(container)
-            })
+            // //cria os monstros na memoria
+            // monsters.loadSheet('src/sprites/0x72_16x16DungeonTileset.v4.png', [
+            //     { // #1 monstro
+            //         x: 133,
+            //         y: 178,
+            //         w: 22,
+            //         h: 30
+            //     },
+            //     {// #2 monstro
+            //         x: 102,
+            //         y: 182,
+            //         w: 20,
+            //         h: 26
+            //     },
+            //     {// #3 monstro
+            //         x: 160,
+            //         y: 177,
+            //         w: 32,
+            //         h: 31
+            //     }
+            // ], 5).then(container => {
+            //     // adicionando ao container do labirinto
+            //     labirinty.add(container)
+            // })
 
             /***
              * 
