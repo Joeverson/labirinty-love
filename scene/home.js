@@ -20,16 +20,16 @@ let home = {
         home.container = new PIXI.Container()
 
         // create a video texture from a path
-        var texture = PIXI.Texture.fromVideo('https://www.w3schools.com/html/mov_bbb.mp4');
+        // var texture = PIXI.Texture.fromVideo('https://www.w3schools.com/html/mov_bbb.mp4');
 
-        // create a new Sprite using the video texture (yes it's that easy)
-        var videoSprite = new PIXI.Sprite(texture);
+        // // create a new Sprite using the video texture (yes it's that easy)
+        // var videoSprite = new PIXI.Sprite(texture);
 
-        // Stetch the fullscreen
-        videoSprite.width = home.lalo.game.screen.width;
-        videoSprite.height = home.lalo.game.screen.height;
+        // // Stetch the fullscreen
+        // videoSprite.width = home.lalo.game.screen.width;
+        // videoSprite.height = home.lalo.game.screen.height;
 
-        home.add(videoSprite);
+        // home.add(videoSprite);
 
         //carregando tudo qeu foi previamente gerado
         // home.graphcs()

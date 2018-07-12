@@ -50,7 +50,7 @@ lalo.animation = animation
 sprites
 -----------------
 */
-lalo.sprites = {}
+lalo.sprites = {};
 
 
 /*
@@ -61,13 +61,13 @@ containers gameScenes
 lalo.gameScenes = {
     labirinty: labirinty.instance(lalo),
     home: home.instance(lalo)
-}
+};
 
 //alterador de scenes.. simplificador
 changer.scenes = [
     home.instance(lalo),
     labirinty.instance(lalo)
-]
+];
 
 /*
 -----------------
@@ -75,6 +75,6 @@ Run - setando as scenas qeu seram renderizadas
 -----------------
 */
 
-lalo.gameScenes.home.create()
+lalo.gameScenes.home.create();
 // lalo.gameScenes.labirinty.create()
 // lalo.gameScenes.labirinty.visible(true)
