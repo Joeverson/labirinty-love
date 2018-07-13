@@ -100,7 +100,7 @@ let contain = (sprite, container) => {
 var moveMap = {
     move: (distance, moveDistance, map, sprite) => {        
         
-        let moved = this.c.hasMoved(distance, moveDistance, map, sprite)
+        let moved = moveMap.hasMoved(distance, moveDistance, map, sprite);
         // console.log(moved);
 
         if(moved.bool){
@@ -109,17 +109,17 @@ var moveMap = {
             
             switch(moved.side){
                 case LEFT:
-                    map.stage.x += moveDistance
-                break
+                    map.stage.x += moveDistance;
+                    break;
                 case TOP:
-                    map.stage.y += moveDistance 
-                break
+                    map.stage.y += moveDistance;
+                    break;
                 case RIGHT:
-                    map.stage.x += (-1 * moveDistance)
-                break
+                    map.stage.x += (-1 * moveDistance);
+                    break;
                 case BOTTOM:
-                    map.stage.y += (-1 * moveDistance)
-                break
+                    map.stage.y += (-1 * moveDistance);
+                    break;
             }
         }        
     },

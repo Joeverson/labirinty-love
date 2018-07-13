@@ -5,8 +5,15 @@ import listCommands from '../utils/listCommands';
  * constants
  */
 
- const VELOCITY_CONTAINER = 10
+ const VELOCITY_CONTAINER = 10;
+ const VELOCITY_PERSONA = 3;
 
+ const REMOTE = {
+    LEFT: 'left',
+    RIGHT: 'right',
+    UP: 'up',
+    DOWN: 'down',
+ };
 
 
 /*
@@ -50,7 +57,7 @@ let keyboard = {
             "keyup", key.upHandler.bind(key), false
         );
         return key;
-    },
+    },    
     fisics: {
         text: PIXI.Text,
         cb: {},
@@ -138,6 +145,52 @@ let keyboard = {
     }
 }
 
+
+/**
+ * 
+ * remote controls
+ * 
+ * usado para poder usar controle remoto
+ * para poder controlar o personagem
+ * 
+ * 
+ */
+
+ const remote = (...args) => {
+     const pos = args[1] == null ? null : args[1].pos;
+     const velocity = args[1] == null ? null : args[1].velocity;
+     const sprite = args[0];
+
+     // a sprite demora pra ser instanciada e o jogo buga se tirar esssa validaçaõ aqui
+    if(sprite == undefined) {
+        console.log('sprite ainda não instanciada');        
+    } else if (pos == null) {
+        sprite.vx = 0;
+        sprite.vy = 0;
+    } else if (pos === REMOTE.LEFT) {                
+        sprite.vx = -VELOCITY_PERSONA + ((velocity / 10));
+        sprite.vy = 0;
+        sprite.texture.frame = animation.move.directions.left()
+
+    } else if (pos === REMOTE.RIGHT) {
+        sprite.vx = VELOCITY_PERSONA + (Math.abs(velocity) / 10);
+        sprite.vy = 0;
+
+        sprite.texture.frame = animation.move.directions.right()
+    } else if (pos === REMOTE.UP) {        
+        sprite.vy = -VELOCITY_PERSONA + ((velocity / 10) * -1);
+        sprite.vx = 0;
+
+        sprite.texture.frame = animation.move.directions.up()
+    } else if (pos === REMOTE.DOWN) {
+        sprite.vy = VELOCITY_PERSONA + (Math.abs(velocity) / 10);
+        sprite.vx = 0;
+
+        sprite.texture.frame = animation.move.directions.down()
+    }
+ }
+
+
 /*
 -----------------
 move the sprites
@@ -152,13 +205,13 @@ let joystick = (sprite) => {
         right = keyboard.logic(39),
         down = keyboard.logic(40);
 
-    let velocity = 3
+    let VELOCITY_PERSONA = 3
 
 
     //Left arrow key `press` method
     left.press = () => {
-        //Change the cat's velocity when the key is pressed
-        sprite.vx = -velocity;
+        //Change the cat's VELOCITY_PERSONA when the key is pressed
+        sprite.vx = -VELOCITY_PERSONA;
         sprite.vy = 0;
 
         sprite.texture.frame = animation.move.directions.left()
@@ -179,7 +232,7 @@ let joystick = (sprite) => {
 
     //Up
     up.press = () => {
-        sprite.vy = -velocity;
+        sprite.vy = -VELOCITY_PERSONA;
         sprite.vx = 0;
 
         sprite.texture.frame = animation.move.directions.up()
@@ -195,7 +248,7 @@ let joystick = (sprite) => {
 
     //Right
     right.press = () => {
-        sprite.vx = velocity;
+        sprite.vx = VELOCITY_PERSONA;
         sprite.vy = 0;
 
         sprite.texture.frame = animation.move.directions.right()
@@ -212,7 +265,7 @@ let joystick = (sprite) => {
 
     //Down
     down.press = () => {
-        sprite.vy = velocity;
+        sprite.vy = VELOCITY_PERSONA;
         sprite.vx = 0;
 
         sprite.texture.frame = animation.move.directions.down()
@@ -249,7 +302,7 @@ let joystickMoveContainer = {
 
         //Left arrow key `press` method
         left.press = () => {
-            //Change the cat's velocity when the key is pressed    
+            //Change the cat's VELOCITY_PERSONA when the key is pressed    
             sprite.texture.frame = animation.move.directions.left()
 
             this.b.movedContainer.left(container)
@@ -299,7 +352,7 @@ let joystickMoveContainer = {
     }
 }
 
-
+joystick
 
 /**
  * chamada de comandos dados pelos jogador ao bixiho on xão
@@ -328,5 +381,6 @@ export {
     keyboard,
     joystick,
     commands,
-    joystickMoveContainer
+    joystickMoveContainer,
+    remote
 }
