@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>lalo</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    @font-face {
+      font-family: 'Lobster', cursive;
+    }
+
+    input {
+      position: absolute;
+      bottom: 0;
+      width: 100vw;
+      height: 3vh;
+      font-size: 2.5vh;
+      z-index: 100000;
+    }
+  </style>
+
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="/dist/build.js"></script>
+
+  <input type="text" id='command'>
+</body>
+
+</html>
