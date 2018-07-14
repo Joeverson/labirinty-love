@@ -24,16 +24,26 @@ export default {
     if (m.velocidade > p.velocidade) {
       p.hp = (p.hp - m.forca);
 
+      // DIMINUINDO ABARRA DO LIFE
+      sprites.persona.children[0].width -= m.forca
+
       // miss attack
-      if (utils.random(velocidade) < m.velocidade) {
+      if (utils.random(m.velocidade * 3) < m.velocidade) {
         m.hp = (m.hp - p.forca);
+        sprites.monster.children[0].width -= p.forca
+      } else {
+        console.log('miss monster');
       }
-    } else {      
+    } else {
       m.hp = (m.hp - p.forca);
-      
+      sprites.monster.children[0].width -= p.forca
+
       // miss attack
-      if (utils.random(velocidade) < m.velocidade) {
-        m.hp = (m.hp - p.forca);
+      if (utils.random(m.velocidade * 3) < m.velocidade) {
+        p.hp = (p.hp - m.forca);
+        sprites.persona.children[0].width -= m.forca
+      } else {
+        console.log('miss you');
       }
     }
 
