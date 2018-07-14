@@ -1,14 +1,12 @@
-
-import monsters from "../engime/Monsters";
 import utils from "../utils/utils";
-import battle from "../engime/battle";
-import hp from "../engime/hp";
 
 
 export default class Labirinty {
 
   constructor() {
     this.lalo = false;
+
+    // conteiner in the scenes
     this.container = new PIXI.Container();
 
     //state looping - definição de que looping será chamado para executar
@@ -18,10 +16,18 @@ export default class Labirinty {
   /**
    * adicionando objetos a scene
    * 
+   * caso seja um array ele vai inserindo todos que vem
+   * 
    * @param {*} object 
    */
   add(object) {
-    this.container.addChild(object);
+    if (object instanceof Array) {
+      _.forEach(object, (o) => {
+        this.container.addChild(o);
+      })
+    } else {
+      this.container.addChild(object);
+    }
   }
 
   /**
@@ -32,82 +38,31 @@ export default class Labirinty {
    */
 
   create(lalo) {
-    //instanciando tudo dentro do container
-    this.loads(lalo, (objects) => {
-      
-      //add the joystick for one personagem
-      lalo.joystick(lalo.sprites.persona);
+    
+    // create persona player
+    this.player(lalo);
+    
+    /**
+     * Criando o map floor
+     * */
+    const map = lalo.map.labth.generate(lalo, 151, 182, 3, {
+      left: "src/sprites/Isometric/cliffBrown_block_SE.png",
+      right: "src/sprites/Isometric/cliffBrown_block_SE.png",
+      top: "src/sprites/Isometric/cliffBrown_block_SE.png",
+      bottom: "src/sprites/Isometric/cliffBrown_block_SE.png"
+    });
+    
+    // add objects ao container
+    this.add(map);
+    
+    // Escutando os comandos disparados pelos jogador
+    lalo.action.commands.listen(lalo);
+    
+    // Deixando esse container visivel
+    this.container.visible = true;
 
-      //adiciono no global esse container scene
-      lalo.add(this.container);
-
-      utils.debug.sprite(lalo.sprites.persona);
-
-      /***
-       * 
-       * Criando o labirinto
-       * 
-       * */
-      lalo.labth.instance(lalo);
-
-      lalo.labth.generate(151, 182, 3, {
-        left: "src/sprites/Isometric/cliffBrown_block_SE.png",
-        right: "src/sprites/Isometric/cliffBrown_block_SE.png",
-        top: "src/sprites/Isometric/cliffBrown_block_SE.png",
-        bottom: "src/sprites/Isometric/cliffBrown_block_SE.png"
-      });
-
-
-      /**
-       * 
-       * Criando os monstros
-       * 
-       */
-
-      //cria os monstros na memoria
-      lalo.monsters.loadSheet(lalo, 'src/sprites/0x72_16x16DungeonTileset.v4.png', [
-          { // #1 monstro
-              x: 133,
-              y: 178,
-              w: 22,
-              h: 30
-          },
-          {// #2 monstro
-              x: 102,
-              y: 182,
-              w: 20,
-              h: 26
-          },
-          {// #3 monstro
-              x: 160,
-              y: 177,
-              w: 32,
-              h: 31
-          }
-      ], 5).then(container => {
-          // adicionando ao container do labirinto
-          this.add(container);
-      })
-
-      /***
-       * 
-       * escutando os comandos disparados pelos jogador
-       * 
-       * */
-      lalo.commands.listen(lalo);
-
-      // add objects ao container
-      _.forEach(objects, o => {
-        this.add(o);
-      });
-
-      /**
-       * 
-       * deixando esse container visivel
-       * 
-       */
-      this.container.visible = true;
-    })
+    //adiciono no global esse container scene
+    lalo.add(this.container);
   }
 
   /**
@@ -117,118 +72,141 @@ export default class Labirinty {
   visible(is) {
     this.container.visible = is;
   }
+  /**
+   * 
+   * instance and prepare mosnters
+   * 
+   */
+  monsters(lalo) {
+    //cria os monstros na memoria
+    const monster = lalo.monsters.loadSheet(lalo, 'src/sprites/0x72_16x16DungeonTileset.v4.png', [{ // #1 monstro
+        x: 133,
+        y: 178,
+        w: 22,
+        h: 30
+      },
+      { // #2 monstro
+        x: 102,
+        y: 182,
+        w: 20,
+        h: 26
+      },
+      { // #3 monstro
+        x: 160,
+        y: 177,
+        w: 32,
+        h: 31
+      }
+    ], 2)
+    
+    monster.then(monster => {
+      // adicionando ao container do labirinto
+      this.add(monster);
+    });
 
-  /*
-  -----------------
-  load and cache sprites
-  -----------------
-  */
+  }
 
-  loads(lalo, callback) {
-    // load the texture we need
-    PIXI.loader
-      .add('person', 'src/sprites/878773e1bbd2db4dda551f29039b6ee3-d6qwisk.png').load((loader, resources) => {
+  /**
+   * 
+   * instance and prepare player
+   * 
+   */
+  player(lalo) {
+    //cria os monstros na memoria
+    const player = lalo.persona.moveload(lalo, 'src/sprites/878773e1bbd2db4dda551f29039b6ee3-d6qwisk.png', {
+      left: [{
+          x: 594,
+          y: 54
+        },
+        {
+          x: 626,
+          y: 56
+        },
+        {
+          x: 658,
+          y: 54
+        },
+        {
+          x: 690,
+          y: 56
+        },
+      ],
+      up: [{
+          x: 594,
+          y: 150
+        },
+        {
+          x: 626,
+          y: 152
+        },
+        {
+          x: 658,
+          y: 150
+        },
+        {
+          x: 690,
+          y: 152
+        }
+      ],
+      right: [{
+          x: 594,
+          y: 102
+        },
+        {
+          x: 626,
+          y: 104
+        },
+        {
+          x: 658,
+          y: 102
+        },
+        {
+          x: 690,
+          y: 104
+        }
+      ],
+      down: [{
+          x: 594,
+          y: 6
+        },
+        {
+          x: 626,
+          y: 8
+        },
+        {
+          x: 658,
+          y: 6
+        },
+        {
+          x: 690,
+          y: 8
+        },
+      ]
+    }, {
+      w: 28,
+      h: 38
+    });
 
-        //preparando o person
-        resources.person.texture.frame = lalo.animation.move.load({
-          left: [{
-              x: 594,
-              y: 54
-            },
-            {
-              x: 626,
-              y: 56
-            },
-            {
-              x: 658,
-              y: 54
-            },
-            {
-              x: 690,
-              y: 56
-            },
-          ],
-          up: [{
-              x: 594,
-              y: 150
-            },
-            {
-              x: 626,
-              y: 152
-            },
-            {
-              x: 658,
-              y: 150
-            },
-            {
-              x: 690,
-              y: 152
-            }
-          ],
-          right: [{
-              x: 594,
-              y: 102
-            },
-            {
-              x: 626,
-              y: 104
-            },
-            {
-              x: 658,
-              y: 102
-            },
-            {
-              x: 690,
-              y: 104
-            }
-          ],
-          down: [{
-              x: 594,
-              y: 6
-            },
-            {
-              x: 626,
-              y: 8
-            },
-            {
-              x: 658,
-              y: 6
-            },
-            {
-              x: 690,
-              y: 8
-            },
-          ]
-        }, {
-          w: 28,
-          h: 38
-        }).default
+    player.then((player) => {
+      //colocando a barra de vida
+      lalo.action.hp.bar(player);
 
-        const persona = new PIXI.Sprite(resources.person.texture);
+      //definindo quem vai tratar o looping
+      this.state = this.personRunner;
 
-        // persona.interactive = true
-        // persona.buttonMode = true
+      // adicionando ao container do labirinto
+      this.add(player);
+      
+      // controller
+      lalo.joystick(player);
 
-        //atribuindo ao lalo as sprites para serem usdas em qualquer lugar
-        lalo.sprites.persona = persona;
+      // movendo o persona tempos em tempos
+      lalo.game.ticker.add(delta => this.gameLoop(lalo, delta));
 
-        lalo.sprites.persona.vx = 0;
-        lalo.sprites.persona.vy = 0;
+      // Criando os monstros
+      this.monsters(lalo);
+    });
 
-        lalo.sprites.persona.x = window.innerWidth / 2;
-        lalo.sprites.persona.y = window.innerHeight / 2;
-
-        //colocando a barra de vida
-        hp.bar(lalo.sprites.persona);
-
-        //definindo quem vai tratar o looping
-        this.state = this.personRunner;
-
-        lalo.game.ticker.add(delta => this.gameLoop(lalo, delta));
-
-
-        callback([lalo.sprites.persona]);
-      });
   }
 
   /**
@@ -257,8 +235,8 @@ export default class Labirinty {
      * dos obstaculos e o contain faz uma contenção para que ele não atravese 
      */
     _.forEach(lalo.sprites.walls, wall => {
-      if (collision(wall, lalo.sprites.persona)) {
-        contain(lalo.sprites.persona, wall);
+      if (lalo.fisic.collision(wall, lalo.sprites.persona)) {
+        lalo.fisic.leap(lalo.sprites.persona, wall);
       }
     })
 
@@ -270,11 +248,18 @@ export default class Labirinty {
      * 
      */
     _.forEach(lalo.sprites.monsters, monster => {
-      if (lalo.collision(monster, lalo.sprites.persona)) {
+      if (lalo.fisic.collision(monster, lalo.sprites.persona)) {
         // enviando para o remoto
         lalo.remote.emit('die', 'cago');
-        // contain(lalo.sprites.persona, monster);
-        battle.fight(lalo);
+
+        // block utrapass objects using recue
+        lalo.fisic.leap(lalo.sprites.persona, monster);
+
+        // battle in monster
+        lalo.action.battle.attack({
+          persona: lalo.sprites.persona,
+          monster
+        });
       }
     })
 

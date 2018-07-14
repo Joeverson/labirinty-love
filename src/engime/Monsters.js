@@ -137,7 +137,7 @@ export default class Monsters {
 
                     })
 
-                    lalo.gameScenes.monsters = this.container;
+                    lalo.scenes.monsters = this.container;
                     //returnn promisse
                     resolve(this.container);
                 });

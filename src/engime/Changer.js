@@ -7,8 +7,8 @@
  */
 
 export default class Changer {
-  constructor(gameScenes) {
-    this.scenes = this.scanScenes(gameScenes);
+  constructor() {
+    this.scenes = '';
     this.current = -1;
   }
 
@@ -56,6 +56,8 @@ export default class Changer {
    * 
    */
   start(lalo, scene = false) {
+    this.scenes = lalo.scenes;
+
     // create all scenes
     _.forEach(this.scenes, element => {
       let scene = element;
@@ -71,20 +73,5 @@ export default class Changer {
       this.scenes[0].visible(true);
       this.current++;
     }
-  }
-
-  /**
-   * 
-   * get the scenes alreay registed
-   * 
-   */
-  scanScenes(gameScenes) {
-    const scenes = [];
-
-    Object.keys(gameScenes).forEach(function (key) {
-      scenes.push(gameScenes[key]);
-    });
-
-    return scenes;
   }
 }
