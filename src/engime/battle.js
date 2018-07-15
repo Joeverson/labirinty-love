@@ -15,40 +15,84 @@ import utils from "../utils/utils";
 
 export default {
   lalo: {},
-  attack({ ...sprites
-  }) {
-    const p = sprites.persona.atributos;
-    const m = sprites.monster.atributos;
+  fight(lalo, {...sprites}) {
+    this.lalo = lalo;
+    const persona = sprites.persona;
+    const monster = sprites.monster;
+    
+    console.log(lalo);
+    
+    // açaõ de atacar o oponente
+    this.attack(persona, monster);
+    
+    console.log(persona.atributos, monster.atributos);
+  },
+  /**
+   * atack dos personagens 
+   * 
+   * @param {*} persona 
+   * @param {*} monster 
+   */
+  attack(persona, monster) {
+    const p = persona.atributos;
+    const m = monster.atributos;
 
-    // aquele que tiver maior velocidade ataca primeiro
+    /**
+     * aquele que tem maior velocidade é quem ataca 
+     * primeiro
+     */
     if (m.velocidade > p.velocidade) {
-      p.hp = (p.hp - m.forca);
-
-      // DIMINUINDO ABARRA DO LIFE
-      sprites.persona.children[0].width -= m.forca
+      this.damage(persona, m.forca);      
 
       // miss attack
-      if (utils.random(m.velocidade * 3) < m.velocidade) {
-        m.hp = (m.hp - p.forca);
-        sprites.monster.children[0].width -= p.forca
+      if (utils.random(m.velocidade * 3) < m.velocidade) {        
+        this.damage(monster, p.forca);
       } else {
         console.log('miss monster');
       }
     } else {
-      m.hp = (m.hp - p.forca);
-      sprites.monster.children[0].width -= p.forca
+      this.damage(monster, p.forca);
 
       // miss attack
       if (utils.random(m.velocidade * 3) < m.velocidade) {
-        p.hp = (p.hp - m.forca);
-        sprites.persona.children[0].width -= m.forca
+        this.damage(persona, m.forca);
       } else {
         console.log('miss you');
       }
     }
-
-    console.log(p, m);
   },
+  
+  /**
+   * representação de dano do personagem
+   * 
+   * @param {*} sprite 
+   * @param {int} damage 
+   */
+  damage(sprite, damage) {
+    if (sprite.atributos.hp > 0) {
+      // diminuindo o hp nos atributos
+      sprite.atributos.hp -= damage;
+      
+      if ((sprite.atributos.hp - damage) > 0){
+        // diminuindo o hp visualmente no game
+        sprite.children[0].width -= utils.hpBarPorcent(sprite.atributos.hp, damage, sprite.children[0].width);
+      } else {
+        this.die(sprite);
+      }
+    }    
+  },
+
+  /**
+   * die é um metodo que mata o persona 
+   * basicamento faxz ele sumir e dar atributos ao persona
+   * 
+   */
+  die(sprite) {
+    // faz com qeu o bixo suma
+    sprite.visible = false;
+    // sprite.destroy();
+  },
+
   /**
    * Fazendo um zoom no personagem durante uma batalha
    * 

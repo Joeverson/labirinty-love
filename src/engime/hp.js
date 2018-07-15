@@ -6,12 +6,14 @@
  */
 
 export default {
-    bar: (sprite) => {
+    bar: (sprite, color) => {
+        color = color || 0xEF5350;
+        
         var graphics = new PIXI.Graphics();
 
         graphics.lineStyle(3, 0x000000, 1);
-        graphics.beginFill(0xEF5350, 0.95);
-        graphics.drawRoundedRect(50, 450, 300, 50, 5);
+        graphics.beginFill(color, 0.95);
+        graphics.drawRoundedRect(50, 450, 300, 20, 5);
         graphics.endFill();
 
 

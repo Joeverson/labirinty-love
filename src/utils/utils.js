@@ -7,31 +7,40 @@
  * 
  */
 
- export default {
-     /**
-      * para poder pegar um numero aleatorio, basta fazer a chamada
-      * e passar um numero qeu vai ser executado a funçãod e chamada aleatoria
-      */
-     random: (number) => {
-        return Math.floor(Math.random()*number)
-     },
+export default {
+  /**
+   * para poder pegar um numero aleatorio, basta fazer a chamada
+   * e passar um numero qeu vai ser executado a funçãod e chamada aleatoria
+   */
+  random: (number) => {
+    return Math.floor(Math.random() * number)
+  },
+  /**
+   * calc porcent damage in persona
+   * calculo para saber o quanto vai diminuir da barrinha de life
+   * 
+   * recebe o hp:int damage:int barWidth:int
+   */
+  hpBarPorcent(hp, damage, barWidth) {
+    return (damage / hp) * barWidth;
+  },
+  /**
+   * debug é um metodo que ajuda a debugar de forma geral algumas coisas que 
+   * vejo como necessario
+   */
+  debug: {
     /**
-     * debug é um metodo que ajuda a debugar de forma geral algumas coisas que 
-     * vejo como necessario
+     * esse modo do debug funciona como click onde vc passa por 
+     * parametro o elemento do sprite e ao clicar nele
+     * ele informa algumas coisas referente aposição do sprite
+     * e o seu tamanho
      */
-     debug: {
-         /**
-          * esse modo do debug funciona como click onde vc passa por 
-          * parametro o elemento do sprite e ao clicar nele
-          * ele informa algumas coisas referente aposição do sprite
-          * e o seu tamanho
-          */
-         sprite: (s, i, t) => {
-             s.interactive = true
-             s.buttonMode = true
+    sprite: (s, i, t) => {
+      s.interactive = true
+      s.buttonMode = true
 
-             s.on('pointerdown', (o) => {
-                 let print = `
+      s.on('pointerdown', (o) => {
+        let print = `
                 X: ${s.x}
                 Y: ${s.y}
                 i: ${i}
@@ -40,9 +49,9 @@
                 height: ${s.height}
              `
 
-                 console.log(print, s)
+        console.log(print, s)
 
-             });
-         }
-     }
- }
+      });
+    }
+  }
+}

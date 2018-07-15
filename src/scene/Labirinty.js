@@ -250,16 +250,20 @@ export default class Labirinty {
     _.forEach(lalo.sprites.monsters, monster => {
       if (lalo.fisic.collision(monster, lalo.sprites.persona)) {
         // enviando para o remoto
-        lalo.remote.emit('die', 'cago');
-
-        // block utrapass objects using recue
-        lalo.fisic.leap(lalo.sprites.persona, monster);
-
-        // battle in monster
-        lalo.action.battle.attack({
-          persona: lalo.sprites.persona,
-          monster
-        });
+        // lalo.remote.emit('die', 'cago');
+        
+        // caso esteja invisivel ele não bloqueia o persona
+        if (monster.visible) {
+          // block utrapass objects using recue
+          lalo.fisic.leap(lalo.sprites.persona, monster);
+          
+          // battle in monster 'attack'
+          lalo.action.battle.fight(lalo, {
+            persona: lalo.sprites.persona,
+            monster
+          });
+        }
+        
       }
     })
 

@@ -34,7 +34,8 @@ import Game from './engime/game';
 
 const packages = {
   //controllers
-  joystick,
+  // joystick,
+  joystick: remote,
   // fisicas do sistema   
   fisic: {
     // colisões entre objetos
