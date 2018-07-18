@@ -1,10 +1,10 @@
 /**
- * 
+ *
  * aqui vai ficar as funções mais uteis para não
  * ficar escrevendo muita coisa de forma repetida
  * pq  fica chato
- * 
- * 
+ *
+ *
  */
 
 export default {
@@ -15,22 +15,20 @@ export default {
   random: (number) => {
     return Math.floor(Math.random() * number)
   },
+
   /**
-   * calc porcent damage in persona
-   * calculo para saber o quanto vai diminuir da barrinha de life
-   * 
-   * recebe o hp:int damage:int barWidth:int
+   * create text in games
    */
-  hpBarPorcent(hp, damage, barWidth) {
-    return (damage / hp) * barWidth;
+  text () {
+
   },
   /**
-   * debug é um metodo que ajuda a debugar de forma geral algumas coisas que 
+   * debug é um metodo que ajuda a debugar de forma geral algumas coisas que
    * vejo como necessario
    */
   debug: {
     /**
-     * esse modo do debug funciona como click onde vc passa por 
+     * esse modo do debug funciona como click onde vc passa por
      * parametro o elemento do sprite e ao clicar nele
      * ele informa algumas coisas referente aposição do sprite
      * e o seu tamanho
@@ -50,8 +48,7 @@ export default {
              `
 
         console.log(print, s)
-
-      });
+      })
     }
   }
 }
