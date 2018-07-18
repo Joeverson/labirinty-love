@@ -26,28 +26,6 @@ export default class Monsters {
     this.container.addChild(object)
   }
 
-  // passa um array de names dos sprites e a quantidade de quantos vai repetir
-  create (lalo, monsters, qtdIqualsMonster) {
-    return new Promise(resolve => {
-      // criando os sprites com bas no nome que foi dado a ele
-      _.forEach(monsters, monster => {
-        for (var i = 0; i < qtdIqualsMonster; i++) {
-          // fazendo um clone do monstro para poder fazer varias copias
-          var m = PIXI.Sprite.fromImage(monster)
-
-          // gerando os atributos de forma aleatoria para os monstros
-          // atribuindo nova propriedade para o sprite
-          m.atributos = lalo.action.attributes.generate()
-
-          // distribuindo na tela
-          this.distribuir(lalo, m)
-
-          resolve(this.container)
-        }
-      })
-    })
-  }
-
   // criando com base num sheet de sprites
   /**
    * sheet: uma string com o caminho do sheet dos sprites
@@ -106,6 +84,9 @@ export default class Monsters {
               // debug
               utils.debug.sprite(m)
 
+              // adicionando os drops
+              lalo.action.itens.addDrop(m)
+              
               // dsitribuindo
               this.distribuir(lalo, m)
             }

@@ -53,9 +53,8 @@ export default {
    *
    * */
   die (sprite) {
-    // faz com qeu o bixo suma
+    // faz com que o sprite suma
     sprite.visible = false
-    // sprite.destroy()
   },
   /**
    * calc porcent damage in persona

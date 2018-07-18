@@ -19,7 +19,7 @@ import Persona from './engime/Persona'
 import battle from './engime/battle'
 import hp from './engime/hp'
 import attributes from './engime/attributes'
-
+import itens from './engime/itens'
 /**
  * SCENES
  *
@@ -53,7 +53,8 @@ const packages = {
     },
     // helth
     hp,
-    attributes
+    attributes,
+    itens
   },
   map: {
     // gerando labirintys

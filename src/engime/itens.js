@@ -1,15 +1,15 @@
 /**
- * itens engime
- *
+ * 
+ * load itens
+ * 
  */
+import itens from '../resources/itens.json'
+import utils from '../utils/utils';
 
 export default {
-  load (lalo) {
-    const b = new PIXI.Sprite.fromImage(`src/sprites/0x72_16x16DungeonTileset.v4.png`)
-    // b.frame = new PIXI.Rectangle(10, 10, 10, 10)
-    // const s = new PIXI.Sprite(b)
-    console.log(lalo.scenes.labirinty)
-
-    lalo.scenes.labirinty.add(b)
+  addDrop(sprite) {
+    const item = new PIXI.Sprite.fromImage(itens[utils.random(itens.length)].uri);
+    item.visible = false;
+    sprite.addChild(item)
   }
 }
