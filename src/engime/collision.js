@@ -4,7 +4,7 @@ import { ESRCH } from "constants";
  * CONSTANTS
  * **/
 
-const RECUO = 10
+const RECUO = 10;
 const TOP = 0, RIGHT = 1, BOTTOM = 2, LEFT = 3
 /*
 -----------------
@@ -62,8 +62,15 @@ let collision = (r1, r2) => {
     return hit;
 }
 
-
-let contain = (sprite, container) => {
+/**
+ * metodo que faz o recuo do personagem 
+ * para impedir que o usuario atravesse
+ * as paredes ou monstros
+ * 
+ * @param {*} sprite 
+ * @param {*} container 
+ */
+let leap = (sprite, container) => {
     let collision = undefined;
 
 
@@ -173,6 +180,6 @@ var moveMap = {
 
 export {
     collision,
-    contain,
+    leap,
     moveMap
 }

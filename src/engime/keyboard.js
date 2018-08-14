@@ -1,4 +1,4 @@
-import animation from './animation'
+import { move } from './animation'
 import listCommands from '../utils/listCommands';
 
 /**
@@ -13,6 +13,10 @@ import listCommands from '../utils/listCommands';
     RIGHT: 'right',
     UP: 'up',
     DOWN: 'down',
+ };
+
+ const animation = {
+    move
  };
 
 
