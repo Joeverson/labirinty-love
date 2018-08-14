@@ -1,6 +1,6 @@
 import game from './app'
 // import io from 'socket.io-client/lib'
-import itens from './engime/itens'
+// import itens from './engime/itens'
 
 // const socket = io('http://192.168.0.23:3000')
 
