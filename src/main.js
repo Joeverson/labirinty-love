@@ -14,9 +14,10 @@ import Labirinty from './scene/labirinty/scene'
 import Sprite from './engime/n/sprite'
 import attributes from './engime/n/attributes'
 import {
-  joystick,
+  joystick,  
   commands
 } from './engime/keyboard'
+import remote from './engime/Remote'
 import {
   collision,
   leap,
@@ -40,7 +41,8 @@ const lalo = new Game({
   commands,
   collision,
   leap,
-  battle
+  battle,
+  remote
 })
 
 lalo.start()

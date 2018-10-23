@@ -7,6 +7,7 @@
  *
  */
 import _ from 'lodash'
+import utils from '../utils/utils';
 
 class LabthIsometric {
   constructor () {
@@ -39,18 +40,12 @@ class LabthIsometric {
       left: 'src/sprites/Isometric/cactus_short_SE.png'
     }
 
-    /**
-     *
-     * desenhando o losango onde vais er a base de draw do map
-     *
-     */
-
     // definindo a primeiro parte do map
     const plus = this.addBlocksPlus(lalo, rows, cells, sprite)
 
     // desenhando a segunda parte do map
     this.addBlocksLess(lalo, rows, plus.cells, sprite)
-
+    
     // organizando os blocos no map para apresentar no render
     return this.organizeBlocks(lalo)
   }
@@ -153,7 +148,48 @@ class LabthIsometric {
     // add positions of the em um objeto (depois ja colocar as informações do sprite wall )
     lalo.getContainer('labirinth').addChild(this.container)
 
+    this.spreadThings(35)
+
     return this.container
+  }
+
+  /**
+   * espalhando itens pelo mapa
+   * vc passa a porcentagem do espaço que vai ser populado
+   * 
+   * @param {Int} percent
+   */
+  spreadThings(percent) {
+    const itens = [
+      'src/sprites/Isometric/flower_red3_NW.png',
+      'src/sprites/Isometric/log_small_SW.png',
+      'src/sprites/Isometric/logs_stack_NW.png',
+      'src/sprites/Isometric/plant_bush_NW.png',
+      'src/sprites/Isometric/rock_tall2_NW.png',
+      'src/sprites/Isometric/tent_detailedOpen_SE.png',
+      'src/sprites/Isometric/tree_pine_shortSquare_detailed_NE.png',
+      'src/sprites/Isometric/tree_pine_shortSquare_detailed_NW.png',
+      'src/sprites/Isometric/tree_pine_shortSquare_detailed_SE.png',
+    ]
+
+    const countContainer = this.container.children.length
+    percent = (percent / 100)
+
+    /**
+     * fazendo o calculo para poder 
+     * saber qual e a quantidade de acordo
+     * com a porcentagem informada
+     */
+    for(var x = 0; x < (percent * countContainer); x++) {
+      var wall = this.container.children[utils.random(countContainer)];
+      var item = PIXI.Sprite.fromImage(itens[utils.random(itens.length)])
+
+      // posição do x e y com base no width e heigt do chão onde ele sta
+      item.x = 45.5
+      item.y = 0
+      
+      wall.addChild(item)
+    }
   }
 }
 

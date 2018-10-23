@@ -110,10 +110,7 @@ var moveMap = {
         let moved = moveMap.hasMoved(distance, moveDistance, map, sprite);
         // console.log(moved);
 
-        if(moved.bool){
-            console.log(distance, moveDistance, map, sprite);
-            console.log(moved);
-            
+        if(moved.bool){            
             switch(moved.side){
                 case LEFT:
                     map.stage.x += moveDistance;

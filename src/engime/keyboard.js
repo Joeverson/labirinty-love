@@ -8,14 +8,6 @@ import listCommands from '../utils/listCommands';
  const VELOCITY_CONTAINER = 10;
  const VELOCITY_PERSONA = 3;
 
- const REMOTE = {
-    LEFT: 'left',
-    RIGHT: 'right',
-    UP: 'up',
-    DOWN: 'down',
- };
-
-
 /*
 -----------------
 keyboards
@@ -145,50 +137,6 @@ let keyboard = {
     }
 }
 
-
-/**
- * 
- * remote controls
- * 
- * usado para poder usar controle remoto
- * para poder controlar o personagem
- * 
- * 
- */
-
- const remote = (...args) => {
-     const pos = args[1] == null ? null : args[1].pos;
-     const velocity = args[1] == null ? null : args[1].velocity;
-     const sprite = args[0];
-
-     // a sprite demora pra ser instanciada e o jogo buga se tirar esssa validaçaõ aqui
-    if(sprite == undefined) {
-        console.log('sprite ainda não instanciada');        
-    } else if (pos == null) {
-        sprite.vx = 0;
-        sprite.vy = 0;
-    } else if (pos === REMOTE.LEFT) {                
-        sprite.vx = -VELOCITY_PERSONA + ((velocity / 10));
-        sprite.vy = 0;
-        sprite.texture.frame = animation.directions.left()
-
-    } else if (pos === REMOTE.RIGHT) {
-        sprite.vx = VELOCITY_PERSONA + (Math.abs(velocity) / 10);
-        sprite.vy = 0;
-
-        sprite.texture.frame = animation.directions.right()
-    } else if (pos === REMOTE.UP) {        
-        sprite.vy = -VELOCITY_PERSONA + ((velocity / 10) * -1);
-        sprite.vx = 0;
-
-        sprite.texture.frame = animation.directions.up()
-    } else if (pos === REMOTE.DOWN) {
-        sprite.vy = VELOCITY_PERSONA + (Math.abs(velocity) / 10);
-        sprite.vx = 0;
-
-        sprite.texture.frame = animation.directions.down()
-    }
- }
 
 
 /*
@@ -379,6 +327,5 @@ export {
     keyboard,
     joystick,
     commands,
-    joystickMoveContainer,
-    remote
+    joystickMoveContainer    
 }
