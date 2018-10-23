@@ -169,7 +169,6 @@ var moveMap = {
 
         return { bool, side}
     }
-
 }
 
 /**

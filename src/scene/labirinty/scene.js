@@ -1,14 +1,16 @@
+import LaloContainer from '../../engime/base/LaloContainer'
+
 /**
  *
  * scene que cria o labitrinto
  *
  */
-class Labirinty {
+class Labirinty extends LaloContainer {
   constructor ({...args}) {
+    super()
     Object.assign(this, args)
     
-    // container do labirinto
-    this.container = new PIXI.Container()
+    // container do labirinto    
     this.container.name = 'labirinth'
 
     // container do game garal
@@ -16,32 +18,6 @@ class Labirinty {
 
     // criando a instancia do game
     this.create(this.lalo)    
-  }
-  /**
-   * metodo responsavel por pegar o container
-   * pelo seu nome
-   * 
-   * @param {Object} container 
-   */
-  getContainer(containerName) {
-    return this.container.children.filter(container => container.name === containerName)
-  }
-
-  /**
-   * adicionando objetos a scene
-   *
-   * caso seja um array ele vai inserindo todos que vem
-   *
-   * @param {*} object
-   */
-  add(object) {
-    if (object instanceof Array) {
-      _.forEach(object, (o) => {
-        this.container.addChild(o)
-      })
-    } else {
-      this.container.addChild(object)
-    }
   }
 
   /**
@@ -52,16 +28,10 @@ class Labirinty {
    */
 
   async create (lalo) {
-    // create persona player
-    await this.player(lalo)
-
-    // Criando os monstros
-    await this.monsters(lalo)
-    
     /**
      * Criando o map floor
      * */
-    lalo.map.labth.generate(lalo, 151, 182, 3, {
+    lalo.map.labthIsometric.generate(lalo, 151, 182, 5, {
       left: 'src/sprites/Isometric/cliffBrown_block_SE.png',
       right: 'src/sprites/Isometric/cliffBrown_block_SE.png',
       top: 'src/sprites/Isometric/cliffBrown_block_SE.png',
@@ -72,10 +42,18 @@ class Labirinty {
     lalo.commands.listen(lalo)
     
     // Deixando esse container visivel
-    this.container.visible = true
+    this.visible(true)
     
     // adiciono no global esse container scene
     lalo.add(this.container)
+
+    console.log(lalo);
+
+    // create persona player
+    await this.player(lalo)
+
+    // Criando os monstros
+    await this.monsters(lalo)
 
     // movendo o persona tempos em tempos
     lalo.application.ticker.add(delta => this.gameLoop(this.getContainer('persona'), lalo, delta))
@@ -235,11 +213,11 @@ class Labirinty {
      * esse foreache verifica se ele esta batendo em algum
      * dos obstaculos e o contain faz uma contenção para que ele não atravese
      */
-    _.forEach(walls, wall => {
-      if (lalo.collision(wall, person)) {
-        lalo.leap(person, wall)
-      }
-    })
+    // _.forEach(walls, wall => {
+    //   if (lalo.collision(wall, person)) {
+    //     lalo.leap(person, wall)
+    //   }
+    // })
 
     /**
      *
@@ -249,17 +227,17 @@ class Labirinty {
      *
      */
     _.forEach(monsters, monster => {
-      if (lalo.fisic.collision(monster, person)) {
+      if (lalo.collision(monster, person)) {
         // enviando para o remoto
         // lalo.remote.emit('die', 'cago')
 
         // caso esteja invisivel ele não bloqueia o persona
         if (monster.visible) {
           // block utrapass objects using recue
-          lalo.fisic.leap(person, monster)
+          lalo.leap(person, monster)
 
           // battle in monster 'attack'
-          lalo.action.battle.fight(lalo, {
+          lalo.battle.fight(lalo, {
             persona: person,
             monster
           })

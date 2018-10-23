@@ -5,6 +5,7 @@ import Changer from './engime/Changer'
 
 // maps
 import labth from './engime/labth'
+import labthIsometric from './engime/labthIsometric'
 
 // scenes
 import Labirinty from './scene/labirinty/scene'
@@ -20,6 +21,7 @@ import {
   collision,
   leap,
 } from './engime/collision'
+import battle from './engime/Battle'
 
 import Monsters from './engime/Monsters'
 
@@ -31,12 +33,14 @@ const lalo = new Game({
   monsters: new Monsters(),
   attributes,
   map: {
-    labth
+    labth,
+    labthIsometric
   },
   joystick,
   commands,
   collision,
-  leap
+  leap,
+  battle
 })
 
 lalo.start()

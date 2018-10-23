@@ -1,4 +1,5 @@
 import utils from '../utils/utils'
+import hp from '../engime/hp'
 
 /**
  *
@@ -12,22 +13,26 @@ import utils from '../utils/utils'
  *
  */
 
-export default {
-  lalo: {},
+class Battle {
+  constructor() {
+
+  }
+
   fight (lalo, {...sprites}) {
     this.lalo = lalo
     const persona = sprites.persona
     const monster = sprites.monster
 
     // show bar
-    lalo.action.hp.showBar(persona)
-    lalo.action.hp.showBar(monster)
+    hp.showBar(persona)
+    hp.showBar(monster)
 
     // açaõ de atacar o oponente
     this.attack(persona, monster)
 
     console.log(persona.atributos, monster.atributos)
-  },
+  }
+
   /**
    * atack dos personagens
    *
@@ -43,43 +48,46 @@ export default {
      * primeiro
      */
     if (m.velocidade > p.velocidade) {
-      this.lalo.action.hp.damage(persona, m.forca)
+      hp.damage(persona, m.forca)
 
       // miss attack
       if (utils.random(m.velocidade * 3) < m.velocidade) {
-        this.lalo.action.hp.damage(monster, p.forca)
+        hp.damage(monster, p.forca)
       } else {
         console.log('miss monster')
       }
     } else {
-      this.lalo.action.hp.damage(monster, p.forca)
+      hp.damage(monster, p.forca)
 
       // miss attack
       if (utils.random(m.velocidade * 3) < m.velocidade) {
-        this.lalo.action.hp.damage(persona, m.forca)
+        hp.damage(persona, m.forca)
       } else {
         console.log('miss you')
       }
     }
-  },
+  }
+
   /**
    * text the MISS
    */
   miss (sprite) {
     sprite.addChild(utils.text('miss'))
-  },
+  }
 
   /**
    * Fazendo um zoom no personagem durante uma batalha
    *
    */
-  zoom: () => {
+  zoom() {
     // fazendo o zook no ambiente
-    this.a.lalo.game.stage.scale.x = 2
-    this.a.lalo.game.stage.scale.y = 2
+    this.lalo.application.stage.scale.x = 2
+    this.lalo.application.stage.scale.y = 2
 
     // deixando o zoom no personagem
-    this.a.lalo.game.stage.x = (-1 * (this.a.lalo.sprites.persona.x))
-    this.a.lalo.game.stage.y = (-1 * (this.a.lalo.sprites.persona.y))
+    this.lalo.application.stage.x = (-1 * (this.lalo.getContainer('labirinth').getContainer('persona').x))
+    this.lalo.application.stage.y = (-1 * (this.lalo.getContainer('labirinth').getContainer('persona').y))
   }
 }
+
+export default new Battle()

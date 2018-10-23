@@ -214,7 +214,7 @@ let joystick = (sprite) => {
         sprite.vx = -VELOCITY_PERSONA;
         sprite.vy = 0;
 
-        sprite.texture.frame = animation.move.directions.left()
+        sprite.texture.frame = animation.directions.left()
     };
 
     //Left arrow key `release` method
@@ -225,7 +225,7 @@ let joystick = (sprite) => {
 
 
         if (!right.isDown && sprite.vy === 0) {
-            sprite.texture.frame = animation.move.directions.left()
+            sprite.texture.frame = animation.directions.left()
             sprite.vx = 0;
         }
     };
@@ -235,11 +235,11 @@ let joystick = (sprite) => {
         sprite.vy = -VELOCITY_PERSONA;
         sprite.vx = 0;
 
-        sprite.texture.frame = animation.move.directions.up()
+        sprite.texture.frame = animation.directions.up()
 
     };
     up.release = () => {
-        sprite.texture.frame = animation.move.directions.up()
+        sprite.texture.frame = animation.directions.up()
 
         if (!down.isDown && sprite.vx === 0) {
             sprite.vy = 0;
@@ -251,12 +251,12 @@ let joystick = (sprite) => {
         sprite.vx = VELOCITY_PERSONA;
         sprite.vy = 0;
 
-        sprite.texture.frame = animation.move.directions.right()
+        sprite.texture.frame = animation.directions.right()
 
     };
     right.release = () => {
 
-        sprite.texture.frame = animation.move.directions.right()
+        sprite.texture.frame = animation.directions.right()
 
         if (!left.isDown && sprite.vy === 0) {
             sprite.vx = 0;
@@ -268,13 +268,13 @@ let joystick = (sprite) => {
         sprite.vy = VELOCITY_PERSONA;
         sprite.vx = 0;
 
-        sprite.texture.frame = animation.move.directions.down()
+        sprite.texture.frame = animation.directions.down()
 
 
     };
 
     down.release = () => {
-        sprite.texture.frame = animation.move.directions.down()
+        sprite.texture.frame = animation.directions.down()
 
         if (!up.isDown && sprite.vx === 0) {
             sprite.vy = 0;
@@ -303,40 +303,40 @@ let joystickMoveContainer = {
         //Left arrow key `press` method
         left.press = () => {
             //Change the cat's VELOCITY_PERSONA when the key is pressed    
-            sprite.texture.frame = animation.move.directions.left()
+            sprite.texture.frame = animation.directions.left()
 
             this.b.movedContainer.left(container)
         };        
         //Left arrow key `release` method
         left.release = () => {
             if (!right.isDown && container.y === 0) {
-                sprite.texture.frame = animation.move.directions.left()
+                sprite.texture.frame = animation.directions.left()
                 // this.b.movedContainer.left(container)
             }            
         };
 
         //Up
         up.press = () => {
-            sprite.texture.frame = animation.move.directions.up()
+            sprite.texture.frame = animation.directions.up()
         };
         up.release = () => {
-            sprite.texture.frame = animation.move.directions.up()
+            sprite.texture.frame = animation.directions.up()
         };
 
         //Right
         right.press = () => {
-            sprite.texture.frame = animation.move.directions.right()
+            sprite.texture.frame = animation.directions.right()
         };
         right.release = () => {
-            sprite.texture.frame = animation.move.directions.right()
+            sprite.texture.frame = animation.directions.right()
         };
 
         //Down
         down.press = () => {
-            sprite.texture.frame = animation.move.directions.down()
+            sprite.texture.frame = animation.directions.down()
         };
         down.release = () => {
-            sprite.texture.frame = animation.move.directions.down()
+            sprite.texture.frame = animation.directions.down()
         };
 
     },

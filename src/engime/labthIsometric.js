@@ -8,12 +8,15 @@
  */
 import _ from 'lodash'
 
-export default class labthIsometric {
+class LabthIsometric {
   constructor () {
     this.width = 0
     this.height = 0
     this.rows = 0
     this.container = new PIXI.Container()
+    this.container.name = 'walls'
+
+    this.map = []
   }
 
   add (sprite) {
@@ -67,7 +70,7 @@ export default class labthIsometric {
       // blocks.reverse()
 
       // definindo a paradinha para a parede
-      lalo.sprites.map.push(blocks)
+      this.map.push(blocks)
 
       // clean the blocs
       blocks = []
@@ -92,7 +95,7 @@ export default class labthIsometric {
       // blocks.reverse()
 
       // definindo a paradinha para a parede
-      lalo.sprites.map.push(blocks)
+      this.map.push(blocks)
 
       // clean the blocs
       blocks = []
@@ -115,43 +118,43 @@ export default class labthIsometric {
     // invertrendo a insersção dos blocos do array
     // lalo.sprites.map.reverse()
 
-    _.forEach(lalo.sprites.map, (blocks, i) => {
+    _.forEach(this.map, (blocks, i) => {
       if (blocks.length === 1) {
-        lalo.sprites.map[i][0].x = lalo.game.renderer.screen.width / 2
-        lalo.sprites.map[i][0].y = (Y * i)
+        this.map[i][0].x = lalo.application.renderer.screen.width / 2
+        this.map[i][0].y = (Y * i)
 
-        this.add(lalo.sprites.map[i][0])
+        this.add(this.map[i][0])
       } else {
         for (var t = 0; t < blocks.length; t++) {
           if (i < this.rows) {
-            if (_.isUndefined(lalo.sprites.map[i][t - 1])) { // caso seja o primeiro bloco da fila
-              lalo.sprites.map[i][t].x = (lalo.sprites.map[i - 1][0].x - this.width / 2)
-              lalo.sprites.map[i][t].y = (Y * i)
+            if (_.isUndefined(this.map[i][t - 1])) { // caso seja o primeiro bloco da fila
+              this.map[i][t].x = (this.map[i - 1][0].x - this.width / 2)
+              this.map[i][t].y = (Y * i)
             } else {
-              lalo.sprites.map[i][t].x = lalo.sprites.map[i][t - 1].x + this.width
-              lalo.sprites.map[i][t].y = (Y * i)
+              this.map[i][t].x = this.map[i][t - 1].x + this.width
+              this.map[i][t].y = (Y * i)
             }
           } else {
-            if (_.isUndefined(lalo.sprites.map[i][t - 1])) { // caso seja o primeiro bloco da fila
-              lalo.sprites.map[i][t].x = (lalo.sprites.map[i - 1][0].x + this.width / 2)
-              lalo.sprites.map[i][t].y = (Y * i)
+            if (_.isUndefined(this.map[i][t - 1])) { // caso seja o primeiro bloco da fila
+              this.map[i][t].x = (this.map[i - 1][0].x + this.width / 2)
+              this.map[i][t].y = (Y * i)
             } else {
-              lalo.sprites.map[i][t].x = lalo.sprites.map[i][t - 1].x + this.width
-              lalo.sprites.map[i][t].y = (Y * i)
+              this.map[i][t].x = this.map[i][t - 1].x + this.width
+              this.map[i][t].y = (Y * i)
             }
           }
           //  adicionando para o container
-          this.add(lalo.sprites.map[i][t])
+          this.add(this.map[i][t])
         }
       }
     })
 
     // for com tamanho de cada paradinha cels
     // add positions of the em um objeto (depois ja colocar as informações do sprite wall )
-    lalo.scenes.walls = this.container
+    lalo.getContainer('labirinth').addChild(this.container)
 
     return this.container
   }
 }
 
-// this.generate(250, 250, 3)
+export default new LabthIsometric()
