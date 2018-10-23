@@ -21,6 +21,7 @@ export default {
     graphics.scale.x = 0.2
     graphics.scale.y = 0.2
     graphics.visible = false
+    graphics.name = 'health'
 
     sprite.addChild(graphics)
   },

@@ -1,17 +1,12 @@
-/*
------------------
-gameing pre base
------------------
-*/
 export default class Game {
   constructor({...args}) {
-    args.game = this.app();
-    args.add = this.add;
+    Object.assign(this, args)
 
-    return args;
+    // intancia do game
+    this.application = this.game();
   }
 
-  app() {
+  game() {
     //Create a Pixi Application
     let app = new PIXI.Application({
       width: 500,
@@ -37,7 +32,26 @@ export default class Game {
    * 
    */
   add(container) {
-    this.game.stage.addChild(container);
+    this.application.stage.addChild(container);
+  }
+
+  /**
+   * metodo responsavel por pegar o container
+   * pelo seu nome
+   * 
+   * @param {Object} container 
+   */
+  getContainer(containerName) {
+    return this.application.stage.children.filter(container => container.name === containerName)[0]
   }
   
+  /**
+   * 
+   * inicializando o game diacordo com a lista de senas
+   * no changed do gaming
+   * 
+   */
+  start () {    
+    this.changer.start(this)
+  }
 }

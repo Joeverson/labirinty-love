@@ -32,7 +32,14 @@ no caso segue o exemplo
 }
 -----------------
 */
-const move =  {
+const directions = {
+  left: () => move.frame('left'),
+  up: () => move.frame('up'),
+  down: () => move.frame('down'),
+  right: () => move.frame('right')
+}
+
+const move = {
   positions: {},
   pixels: {},
   stage: { // passo corrente da animação
@@ -41,62 +48,48 @@ const move =  {
     down: -1,
     right: -1
   },
-  directions: {
-    left: () => {
-      return move.frame("left")
-    },
-    up: () => {
-      return move.frame("up")
-    },
-    down: () => {
-      return move.frame("down")
-    },
-    right: () => {
-      return move.frame("right")
-    }
-  },
-  load: (positions, pixels) => {
+  load(positions, pixels) {    
     //atribuindo as posições num escopo maior
-    move.positions = positions;
+    this.positions = positions;
 
     //definindo tamanhos default para sprite
-    move.pixels = pixels;
-
+    this.pixels = pixels;
+    
     return {
-      default: move.directions.down(),
-      left: move.directions.left(),
-      up: move.directions.up(),
-      down: move.directions.down(),
-      right: move.directions.right()
+      default: this.frame('down'),
+      left: this.frame('left'),
+      up: this.frame('up'),
+      down: this.frame('down'),
+      right: this.frame('right')
     }
   },
-  frame: way => {
+  frame(way) {
     //sounds
     // PIXI.sound.play('steps')
 
     //condicional de posições dde persona onde fica as coisa
-    if (_.isArray(move.positions[way])) {
+    if (_.isArray(this.positions[way])) {
       //verifica qual animação chamar / se for maior que o total de posições ele zera, caso seja menor ele ++
-      if (move.stage[way] < (move.positions[way].length - 1)) {
-        move.stage[way]++
+      if (this.stage[way] < (this.positions[way].length - 1)) {
+        this.stage[way]++
       } else {
-        move.stage[way] = 0;
+        this.stage[way] = 0;
       }
 
       //pegando as informações para a geração do frame
-      let frame = move.positions[way][move.stage[way]]
+      let frame = this.positions[way][this.stage[way]]
 
       //criando o frame para alteração
-      return new PIXI.Rectangle(frame.x, frame.y, move.pixels.w, move.pixels.h)
+      return new PIXI.Rectangle(frame.x, frame.y, this.pixels.w, this.pixels.h)
 
     } else {
       //criando o frame para alteração
-      return new PIXI.Rectangle(move.positions[way].x, move.positions[way].y, move.pixels.w, move.pixels.h)
+      return new PIXI.Rectangle(this.positions[way].x, this.positions[way].y, this.pixels.w, this.pixels.h)
     }
   }
 }
 
-
-export {
-  move
+export default {
+  move,
+  directions
 }

@@ -1,4 +1,4 @@
-import { move } from './animation'
+import animation from './animation'
 import listCommands from '../utils/listCommands';
 
 /**
@@ -13,10 +13,6 @@ import listCommands from '../utils/listCommands';
     RIGHT: 'right',
     UP: 'up',
     DOWN: 'down',
- };
-
- const animation = {
-    move
  };
 
 
@@ -174,23 +170,23 @@ let keyboard = {
     } else if (pos === REMOTE.LEFT) {                
         sprite.vx = -VELOCITY_PERSONA + ((velocity / 10));
         sprite.vy = 0;
-        sprite.texture.frame = animation.move.directions.left()
+        sprite.texture.frame = animation.directions.left()
 
     } else if (pos === REMOTE.RIGHT) {
         sprite.vx = VELOCITY_PERSONA + (Math.abs(velocity) / 10);
         sprite.vy = 0;
 
-        sprite.texture.frame = animation.move.directions.right()
+        sprite.texture.frame = animation.directions.right()
     } else if (pos === REMOTE.UP) {        
         sprite.vy = -VELOCITY_PERSONA + ((velocity / 10) * -1);
         sprite.vx = 0;
 
-        sprite.texture.frame = animation.move.directions.up()
+        sprite.texture.frame = animation.directions.up()
     } else if (pos === REMOTE.DOWN) {
         sprite.vy = VELOCITY_PERSONA + (Math.abs(velocity) / 10);
         sprite.vx = 0;
 
-        sprite.texture.frame = animation.move.directions.down()
+        sprite.texture.frame = animation.directions.down()
     }
  }
 
@@ -355,8 +351,6 @@ let joystickMoveContainer = {
         }
     }
 }
-
-joystick
 
 /**
  * chamada de comandos dados pelos jogador ao bixiho on xão

@@ -1,4 +1,6 @@
 import utils from '../utils/utils'
+import hp from '../engime/hp'
+
 /*
     SCENE Monstros
 */
@@ -19,6 +21,7 @@ import utils from '../utils/utils'
 export default class Monsters {
   constructor () {
     this.container = new PIXI.Container()
+    this.container.name = 'monsters'
   }
 
   // adicionando objetos a scene
@@ -76,7 +79,7 @@ export default class Monsters {
                   gerando os atributos de forma aleatoria para os monstros
                   atribuindo nova propriedade para o sprite
               */
-              m.atributos = lalo.action.attributes.generate()
+              m.atributos = lalo.attributes.create()
 
               // identificando o level pelas cores
               this.level(lalo, m)
@@ -85,14 +88,13 @@ export default class Monsters {
               utils.debug.sprite(m)
 
               // adicionando os drops
-              lalo.action.itens.addDrop(m)
+              // lalo.action.itens.addDrop(m)
               
               // dsitribuindo
               this.distribuir(lalo, m)
             }
           })
 
-          lalo.scenes.monsters = this.container
           // return promisse
           resolve(this.container)
         })
@@ -107,8 +109,8 @@ export default class Monsters {
    *
    */
   distribuir (lalo, monster) {
-    let w = lalo.game.renderer.screen.width
-    let h = lalo.game.renderer.screen.height
+    let w = lalo.application.renderer.screen.width
+    let h = lalo.application.renderer.screen.height
 
     // //definindo um lugar a leatorio para o monstro
     monster.x = utils.random(w)
@@ -116,9 +118,6 @@ export default class Monsters {
 
     // adicionando no container
     this.add(monster)
-
-    // salvando no sprites global
-    lalo.sprites.monsters.push(monster)
   }
 
   level (lalo, monster) {
@@ -139,7 +138,7 @@ export default class Monsters {
     const monsterAttr = monster.atributos
 
     // quantidade do valor da faita para alternar as cores
-    const faixa = lalo.action.attributes.max.FORCA / colors.length
+    const faixa = lalo.attributes.max.FORCA / colors.length
 
     // populando a zonas com valores acumulados e com isso poder ajustar as coisas
     colors.map((c, i) => {
@@ -150,7 +149,7 @@ export default class Monsters {
     const f = colors.filter(c => c.zone <= monsterAttr.forca).pop()
 
     // colocando a barra de life no monstro
-    lalo.action.hp.bar(monster, (f === undefined ? 0x43BCCD : f.color))
+    hp.bar(monster, (f === undefined ? 0x43BCCD : f.color))
   }
 
   visible (is) {

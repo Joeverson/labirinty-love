@@ -7,8 +7,8 @@
  */
 
 export default class Changer {
-  constructor() {
-    this.scenes = '';
+  constructor(scenes) {
+    this.scenes = scenes;
     this.current = -1;
   }
 
@@ -55,23 +55,13 @@ export default class Changer {
    * inicia a aplicação como um game
    * 
    */
-  start(lalo, scene = false) {
-    this.scenes = lalo.scenes;
+  start(lalo) {    
+    const scenes = new this.scenes[0]({
+      lalo: lalo
+    })
+    
+    scenes.visible(true);
 
-    // create all scenes
-    _.forEach(this.scenes, element => {
-      let scene = element;
-
-      scene.create(lalo);
-    });
-
-    //show scene init
-    if (scene) {
-      scene.visible(true);
-      this.scenes[current].visible(false);
-    } else {
-      this.scenes[0].visible(true);
-      this.current++;
-    }
+    this.current++;
   }
 }
