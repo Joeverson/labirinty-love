@@ -31,7 +31,7 @@ class Labirinty extends LaloContainer {
     /**
      * Criando o map floor
      * */
-    lalo.map.labthIsometric.generate(lalo, 151, 182, 5, {
+    lalo.map.labthIsometric.generate(lalo, 151, 182, 15, {
       left: 'src/sprites/Isometric/cliffBrown_block_SE.png',
       right: 'src/sprites/Isometric/cliffBrown_block_SE.png',
       top: 'src/sprites/Isometric/cliffBrown_block_SE.png',

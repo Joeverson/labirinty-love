@@ -8,9 +8,7 @@ export default class Game {
 
   game() {
     //Create a Pixi Application
-    let app = new PIXI.Application({
-      width: 500,
-      height: "90hv",
+    let app = new PIXI.Application({      
       transparent: false
     });
   
@@ -21,7 +19,7 @@ export default class Game {
     app.renderer.view.style.display = "block";
     app.renderer.autoResize = true;
     // app.renderer.backgroundColor = "8D6E63";
-    app.renderer.resize(window.innerWidth, window.innerHeight - 200);
+    app.renderer.resize(window.innerWidth, window.innerHeight);
   
     return app;
   }

@@ -148,7 +148,13 @@ class LabthIsometric {
     // add positions of the em um objeto (depois ja colocar as informações do sprite wall )
     lalo.getContainer('labirinth').addChild(this.container)
 
+    /**
+     * passando a porcentagem proporcional
+     * a chão
+     */
     this.spreadThings(35)
+
+    this.container.y = ((151 * this.rows) / 4) * -1
 
     return this.container
   }
