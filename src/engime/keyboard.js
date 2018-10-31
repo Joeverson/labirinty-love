@@ -8,14 +8,6 @@ import listCommands from '../utils/listCommands';
  const VELOCITY_CONTAINER = 10;
  const VELOCITY_PERSONA = 3;
 
- const REMOTE = {
-    LEFT: 'left',
-    RIGHT: 'right',
-    UP: 'up',
-    DOWN: 'down',
- };
-
-
 /*
 -----------------
 keyboards
@@ -146,50 +138,6 @@ let keyboard = {
 }
 
 
-/**
- * 
- * remote controls
- * 
- * usado para poder usar controle remoto
- * para poder controlar o personagem
- * 
- * 
- */
-
- const remote = (...args) => {
-     const pos = args[1] == null ? null : args[1].pos;
-     const velocity = args[1] == null ? null : args[1].velocity;
-     const sprite = args[0];
-
-     // a sprite demora pra ser instanciada e o jogo buga se tirar esssa validaçaõ aqui
-    if(sprite == undefined) {
-        console.log('sprite ainda não instanciada');        
-    } else if (pos == null) {
-        sprite.vx = 0;
-        sprite.vy = 0;
-    } else if (pos === REMOTE.LEFT) {                
-        sprite.vx = -VELOCITY_PERSONA + ((velocity / 10));
-        sprite.vy = 0;
-        sprite.texture.frame = animation.move.directions.left()
-
-    } else if (pos === REMOTE.RIGHT) {
-        sprite.vx = VELOCITY_PERSONA + (Math.abs(velocity) / 10);
-        sprite.vy = 0;
-
-        sprite.texture.frame = animation.move.directions.right()
-    } else if (pos === REMOTE.UP) {        
-        sprite.vy = -VELOCITY_PERSONA + ((velocity / 10) * -1);
-        sprite.vx = 0;
-
-        sprite.texture.frame = animation.move.directions.up()
-    } else if (pos === REMOTE.DOWN) {
-        sprite.vy = VELOCITY_PERSONA + (Math.abs(velocity) / 10);
-        sprite.vx = 0;
-
-        sprite.texture.frame = animation.move.directions.down()
-    }
- }
-
 
 /*
 -----------------
@@ -214,7 +162,7 @@ let joystick = (sprite) => {
         sprite.vx = -VELOCITY_PERSONA;
         sprite.vy = 0;
 
-        sprite.texture.frame = animation.move.directions.left()
+        sprite.texture.frame = animation.directions.left()
     };
 
     //Left arrow key `release` method
@@ -225,7 +173,7 @@ let joystick = (sprite) => {
 
 
         if (!right.isDown && sprite.vy === 0) {
-            sprite.texture.frame = animation.move.directions.left()
+            sprite.texture.frame = animation.directions.left()
             sprite.vx = 0;
         }
     };
@@ -235,11 +183,11 @@ let joystick = (sprite) => {
         sprite.vy = -VELOCITY_PERSONA;
         sprite.vx = 0;
 
-        sprite.texture.frame = animation.move.directions.up()
+        sprite.texture.frame = animation.directions.up()
 
     };
     up.release = () => {
-        sprite.texture.frame = animation.move.directions.up()
+        sprite.texture.frame = animation.directions.up()
 
         if (!down.isDown && sprite.vx === 0) {
             sprite.vy = 0;
@@ -251,12 +199,12 @@ let joystick = (sprite) => {
         sprite.vx = VELOCITY_PERSONA;
         sprite.vy = 0;
 
-        sprite.texture.frame = animation.move.directions.right()
+        sprite.texture.frame = animation.directions.right()
 
     };
     right.release = () => {
 
-        sprite.texture.frame = animation.move.directions.right()
+        sprite.texture.frame = animation.directions.right()
 
         if (!left.isDown && sprite.vy === 0) {
             sprite.vx = 0;
@@ -268,13 +216,13 @@ let joystick = (sprite) => {
         sprite.vy = VELOCITY_PERSONA;
         sprite.vx = 0;
 
-        sprite.texture.frame = animation.move.directions.down()
+        sprite.texture.frame = animation.directions.down()
 
 
     };
 
     down.release = () => {
-        sprite.texture.frame = animation.move.directions.down()
+        sprite.texture.frame = animation.directions.down()
 
         if (!up.isDown && sprite.vx === 0) {
             sprite.vy = 0;
@@ -303,40 +251,40 @@ let joystickMoveContainer = {
         //Left arrow key `press` method
         left.press = () => {
             //Change the cat's VELOCITY_PERSONA when the key is pressed    
-            sprite.texture.frame = animation.move.directions.left()
+            sprite.texture.frame = animation.directions.left()
 
             this.b.movedContainer.left(container)
         };        
         //Left arrow key `release` method
         left.release = () => {
             if (!right.isDown && container.y === 0) {
-                sprite.texture.frame = animation.move.directions.left()
+                sprite.texture.frame = animation.directions.left()
                 // this.b.movedContainer.left(container)
             }            
         };
 
         //Up
         up.press = () => {
-            sprite.texture.frame = animation.move.directions.up()
+            sprite.texture.frame = animation.directions.up()
         };
         up.release = () => {
-            sprite.texture.frame = animation.move.directions.up()
+            sprite.texture.frame = animation.directions.up()
         };
 
         //Right
         right.press = () => {
-            sprite.texture.frame = animation.move.directions.right()
+            sprite.texture.frame = animation.directions.right()
         };
         right.release = () => {
-            sprite.texture.frame = animation.move.directions.right()
+            sprite.texture.frame = animation.directions.right()
         };
 
         //Down
         down.press = () => {
-            sprite.texture.frame = animation.move.directions.down()
+            sprite.texture.frame = animation.directions.down()
         };
         down.release = () => {
-            sprite.texture.frame = animation.move.directions.down()
+            sprite.texture.frame = animation.directions.down()
         };
 
     },
@@ -351,8 +299,6 @@ let joystickMoveContainer = {
         }
     }
 }
-
-joystick
 
 /**
  * chamada de comandos dados pelos jogador ao bixiho on xão
@@ -381,6 +327,5 @@ export {
     keyboard,
     joystick,
     commands,
-    joystickMoveContainer,
-    remote
+    joystickMoveContainer    
 }

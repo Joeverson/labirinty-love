@@ -9,122 +9,123 @@ import utils from "../utils/utils";
  * 
  * 
  */
-const TOP = 0, RIGHT = 1, BOTTOM = 2, LEFT = 3
+const TOP = 0,
+  RIGHT = 1,
+  BOTTOM = 2,
+  LEFT = 3
 
-export default {
-    x: 0,
-    y: 0,
-    size: 0,
-    lalo: {},
+class Labth {
+  constructor() {
+    this.x = 0
+    this.y = 0
+    this.size = 0
+    
+    const container = new PIXI.Container()
+    container.name = 'walls';
 
-    instance: o => {
-        this.a.lalo = o
-    },
-    container: new PIXI.Container(),
-    add: sprite => {
-        this.a.container.addChild(sprite)
-    },
-    generate: (x, y, size, sprites) => {
-        this.a.x = x // size of the section []
-        this.a.y = y // size of the section []
-        this.a.size = size // tamanho do labirinto tamanho exponencial - quantidade de blocos para row and column
+    this.container = container    
+  }
 
-        // definindo base de objeto e lista de imagens para as paredes do labirinto
-        var o = [], sprite = sprites || {
-            top: 'src/sprites/Isometric/cactus_short_NW.png',
-            right: 'src/sprites/Isometric/cactus_short_SW.png',
-            bottom: 'src/sprites/Isometric/cactus_short_NE.png',
-            left: 'src/sprites/Isometric/cactus_short_SE.png',
-        }
+  add(sprite) {
+    this.container.addChild(sprite)
+  }
 
-        //for com tamanho de cada paradinha row
-        for (var i = 0; i < size; i++) {
-            for (var c = 0; c < size; c++) {
+  generate(lalo, x, y, size, sprites) {
+    this.x = x // size of the section []
+    this.y = y // size of the section []
+    this.size = size // tamanho do labirinto tamanho exponencial - quantidade de blocos para row and column
 
-                // create a new Sprite from an image path
-                var bunny, coor
-
-                switch (utils.random(4)) {
-                    case TOP:
-                        bunny = PIXI.Sprite.fromImage(sprite.top)
-                        coor = this.a.top(i, c, bunny)
-                        bunny.x = coor.x
-                        bunny.y = coor.y
-                        break;
-                    case RIGHT:
-                        bunny = PIXI.Sprite.fromImage(sprite.right)
-                        coor = this.a.right(i, c, bunny)
-                        bunny.x = coor.x
-                        bunny.y = coor.y
-                        break;
-                    case BOTTOM:
-                        bunny = PIXI.Sprite.fromImage(sprite.bottom)
-                        coor = this.a.bottom(i, c, bunny)
-                        bunny.x = coor.x
-                        bunny.y = coor.y
-                        break;
-                    case LEFT:
-                        bunny = PIXI.Sprite.fromImage(sprite.left)
-                        coor = this.a.left(i, c, bunny)
-                        bunny.x = coor.x
-                        bunny.y = coor.y
-                        break;
-                }
-                //definindo a paradinha para a parede
-                this.a.lalo.sprites.walls.push(bunny)
-
-                // utils.debug.sprite(bunny)
-
-                //adicionando para o container
-                this.a.add(bunny)
-            }
-        }
-
-        //for com tamanho de cada paradinha cels
-        // add positions of the em um objeto (depois ja colocar as informações do sprite wall )
-        this.a.lalo.gameScenes.walls = this.a.container
-        this.a.lalo.gameScenes.labirinty.add(this.a.container)
-    },
-
-    // item no lado esquerdo
-    left: (row, cell, sprite) => {
-        return {
-            row,
-            cell,
-            x: (cell * this.a.x) + sprite.width,
-            y: (row * this.a.y) + sprite.height
-        }
-    },
-
-    //item no lado direito
-    right: (row, cell, sprite) => {
-        return {
-            row,
-            cell,
-            x: ((cell * this.a.x) + this.a.x) - sprite.width,
-            y: (row * this.a.y) + sprite.height
-        }
-    },
-
-    //item na parte de baixo
-    bottom: (row, cell, sprite) => {
-        return {
-            row,
-            cell,
-            x: (cell * this.a.x) - sprite.width,
-            y: ((row * this.a.y) + this.a.y) - sprite.height
-        }
-    },
-
-    //item na parte de cima
-    top: (row, cell, sprite) => {
-        return {
-            row,
-            cell,
-            x: ((cell * this.a.x) + this.a.x) - sprite.width,
-            y: (row * this.a.y) - sprite.height
-        }
+    // definindo base de objeto e lista de imagens para as paredes do labirinto    
+    const sprite = sprites || {
+      top: 'src/sprites/Isometric/cactus_short_NW.png',
+      right: 'src/sprites/Isometric/cactus_short_SW.png',
+      bottom: 'src/sprites/Isometric/cactus_short_NE.png',
+      left: 'src/sprites/Isometric/cactus_short_SE.png',
     }
+
+    const walls = []
+
+    //for com tamanho de cada paradinha row
+    for (var i = 0; i < size; i++) {
+      for (var c = 0; c < size; c++) {
+        // create a new Sprite from an image path
+        var wall, coor
+
+        switch (utils.random(4)) {
+          case TOP:
+            wall = PIXI.Sprite.fromImage(sprite.top)
+            coor = this.top(i, c, wall)
+            wall.x = coor.x
+            wall.y = coor.y
+            break;
+          case RIGHT:
+            wall = PIXI.Sprite.fromImage(sprite.right)
+            coor = this.right(i, c, wall)
+            wall.x = coor.x
+            wall.y = coor.y
+            break;
+          case BOTTOM:
+            wall = PIXI.Sprite.fromImage(sprite.bottom)
+            coor = this.bottom(i, c, wall)
+            wall.x = coor.x
+            wall.y = coor.y
+            break;
+          case LEFT:
+            wall = PIXI.Sprite.fromImage(sprite.left)
+            coor = this.left(i, c, wall)
+            wall.x = coor.x
+            wall.y = coor.y
+            break;
+        }
+
+        //adicionando para o container
+        this.add(wall)
+      }
+    }
+
+    // add positions of the em um objeto (depois ja colocar as informações do sprite wall )
+    lalo.getContainer('labirinth').addChild(this.container)
+  }
+
+  // item no lado esquerdo
+  left(row, cell, sprite) {
+    return {
+      row,
+      cell,
+      x: (cell * this.x) + sprite.width,
+      y: (row * this.y) + sprite.height
+    }
+  }
+
+  //item no lado direito
+  right(row, cell, sprite) {
+    return {
+      row,
+      cell,
+      x: ((cell * this.x) + this.x) - sprite.width,
+      y: (row * this.y) + sprite.height
+    }
+  }
+
+  //item na parte de baixo
+  bottom(row, cell, sprite) {
+    return {
+      row,
+      cell,
+      x: (cell * this.x) - sprite.width,
+      y: ((row * this.y) + this.y) - sprite.height
+    }
+  }
+
+  //item na parte de cima
+  top(row, cell, sprite) {
+    return {
+      row,
+      cell,
+      x: ((cell * this.x) + this.x) - sprite.width,
+      y: (row * this.y) - sprite.height
+    }
+  }
 }
 
-// this.a.generate(250, 250, 3)
+export default new Labth()

@@ -1,15 +1,48 @@
-import game from './app';
-import io from 'socket.io-client/lib';
+import "@babel/polyfill";
 
-const socket = io('http://192.168.0.23:3000');
+import Game from './engime/game'
+import Changer from './engime/Changer'
 
-//startand as scenes
-game.remote = socket;
-game.changer.start(game);
+// maps
+import labth from './engime/labth'
+import labthIsometric from './engime/labthIsometric'
 
-// verificando as requisições do remoto
-socket.on('commands', (msg) => {  
-  game.joystick(game.sprites.persona, msg);
-});
+// scenes
+import Labirinty from './scene/labirinty/scene'
 
-export default game;
+// libs
+import Sprite from './engime/n/sprite'
+import attributes from './engime/n/attributes'
+import {
+  joystick,  
+  commands
+} from './engime/keyboard'
+import remote from './engime/Remote'
+import {
+  collision,
+  leap,
+} from './engime/collision'
+import battle from './engime/Battle'
+
+import Monsters from './engime/Monsters'
+
+const lalo = new Game({
+  changer: new Changer([
+    Labirinty
+  ]),
+  Sprite,
+  monsters: new Monsters(),
+  attributes,
+  map: {
+    labth,
+    labthIsometric
+  },
+  joystick,
+  commands,
+  collision,
+  leap,
+  battle,
+  remote
+})
+
+lalo.start()
